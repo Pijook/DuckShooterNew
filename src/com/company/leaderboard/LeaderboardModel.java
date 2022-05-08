@@ -1,8 +1,9 @@
 package com.company.leaderboard;
 
+import com.company.Controllers;
+
 import javax.swing.*;
 import javax.swing.event.ListDataListener;
-import java.util.ArrayList;
 import java.util.List;
 
 public class LeaderboardModel implements ListModel<PlayerScore> {

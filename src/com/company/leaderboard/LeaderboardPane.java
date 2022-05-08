@@ -1,5 +1,6 @@
 package com.company.leaderboard;
 
+import com.company.Frame;
 import com.company.Main;
 
 import javax.swing.*;
@@ -32,7 +33,7 @@ public class LeaderboardPane extends JPanel {
         returnButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Main.getGameFrame().getCardLayout().show(Main.getGameFrame().getMainPane(), Frames.MAIN_MENU.name());
+                Main.getGameFrame().getCardLayout().show(Main.getGameFrame().getMainPane(), Frame.MAIN_MENU.name());
             }
         });
 

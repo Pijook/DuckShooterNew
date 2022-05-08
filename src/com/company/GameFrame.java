@@ -1,6 +1,6 @@
 package com.company;
 
-import com.company.leaderboard.Frames;
+import com.company.game.GamePane;
 import com.company.leaderboard.LeaderboardPane;
 
 import javax.swing.*;
@@ -8,38 +8,50 @@ import java.awt.*;
 
 public class GameFrame extends JFrame {
 
-    private CardLayout cardLayout;
+    private CustomCardLayout cardLayout;
+
+    //Panes
     private JPanel mainPane;
+    private MainMenuPane mainMenuPane;
+    private LeaderboardPane leaderboardPane;
+    private GamePane gamePane;
 
     public GameFrame(){
         setVisible(true);
-        setTitle("Ducks!");
-        setSize(1280, 720);
+        setTitle(Settings.title);
+        setSize(Settings.width, Settings.height);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
         mainPane = new JPanel();
-        mainPane.setLayout(cardLayout = new CardLayout());
+        mainPane.setLayout(cardLayout = new CustomCardLayout(Frame.MAIN_MENU));
 
-        mainPane.add(new MainMenuPane(), Frames.MAIN_MENU.name());
-        mainPane.add(new LeaderboardPane(), Frames.LEADERBOARD.name());
+        mainPane.add(mainMenuPane = new MainMenuPane(), Frame.MAIN_MENU.name());
+        mainPane.add(leaderboardPane = new LeaderboardPane(), Frame.LEADERBOARD.name());
+        mainPane.add(gamePane = new GamePane(), Frame.GAME.name());
 
         add(mainPane);
     }
 
-    public CardLayout getCardLayout() {
-        return cardLayout;
-    }
 
-    public void setCardLayout(CardLayout cardLayout) {
-        this.cardLayout = cardLayout;
+
+    public CustomCardLayout getCardLayout() {
+        return cardLayout;
     }
 
     public JPanel getMainPane() {
         return mainPane;
     }
 
-    public void setMainPane(JPanel mainPane) {
-        this.mainPane = mainPane;
+    public MainMenuPane getMainMenuPane() {
+        return mainMenuPane;
+    }
+
+    public LeaderboardPane getLeaderboardPane() {
+        return leaderboardPane;
+    }
+
+    public GamePane getGamePane() {
+        return gamePane;
     }
 }
