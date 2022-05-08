@@ -1,13 +1,23 @@
 package com.company;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 public class MainMenuPane extends JPanel {
 
     public MainMenuPane(){
         JButton startButton = new JButton("Start");
+        setLayout(new GridBagLayout());
+
+        GridBagConstraints gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = GridBagConstraints.CENTER;
+
+        JLabel titleLabel = new JLabel("Duck Shooter!");
+        titleLabel.setFont(Assets.rainyHeartsFont.deriveFont(72f));
 
         startButton.addActionListener(new ActionListener() {
             @Override
@@ -34,9 +44,26 @@ public class MainMenuPane extends JPanel {
             }
         });
 
-        add(startButton);
-        add(leaderBoardButton);
-        add(exitButton);
+
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+
+        add(titleLabel, gridBagConstraints);
+
+        gridBagConstraints.insets = new Insets(35,0,0,0);
+        gridBagConstraints.ipady = 35;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+
+        add(startButton, gridBagConstraints);
+
+        gridBagConstraints.gridy = 2;
+
+        add(leaderBoardButton, gridBagConstraints);
+
+        gridBagConstraints.gridy = 3;
+
+        add(exitButton, gridBagConstraints);
     }
 
 }

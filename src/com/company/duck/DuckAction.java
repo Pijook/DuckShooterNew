@@ -17,7 +17,6 @@ public class DuckAction implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         duck.setLives(duck.getLives() - 1);
-        duck.setText("Hits: " + duck.getLives());
         if(duck.getLives() <= 0){
             duck.setAlive(false);
             Controllers.getGameController().setScore(Controllers.getGameController().getScore() + duck.getScore());

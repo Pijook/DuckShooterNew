@@ -1,11 +1,9 @@
 package com.company.duck;
 
 import com.company.Settings;
-import com.company.Textures;
+import com.company.Assets;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Random;
 
 public abstract class Duck extends JButton {
@@ -55,9 +53,10 @@ public abstract class Duck extends JButton {
     private boolean left;
 
     public Duck(int lives, int score, int damage, int speed) {
-        //super(new ImageIcon(Textures.duckImage));
-        //setBorder(BorderFactory.createEmptyBorder());
-        //setContentAreaFilled(false);
+        super(Assets.animatedDuckBigImage);
+
+        setBorder(BorderFactory.createEmptyBorder());
+        setContentAreaFilled(false);
         this.lives = lives;
         this.score = score;
         this.damage = damage;
@@ -75,7 +74,7 @@ public abstract class Duck extends JButton {
             position.move(speed, 0);
         }
 
-        setBounds(position.getX(), position.getY(), 150, 100);
+        setBounds(position.getX(), position.getY(), Assets.animatedDuckBigImage.getIconWidth(), Assets.animatedDuckBigImage.getIconHeight());
     }
 
     public void setLives(int lives) {

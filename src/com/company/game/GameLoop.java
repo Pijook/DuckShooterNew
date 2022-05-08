@@ -5,7 +5,9 @@ import com.company.Settings;
 import com.company.duck.Duck;
 
 import javax.swing.*;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class GameLoop extends Thread {
 
@@ -19,16 +21,15 @@ public class GameLoop extends Thread {
     public void run() {
         super.run();
         while(!isInterrupted() && gameController.isGameActive()){
-            //System.out.println("Ducks alive " + gameController.getSpawnedDucks().size());
             Iterator<Duck> iterator = gameController.getSpawnedDucks().iterator();
+
+            List<Duck> toRemove = new ArrayList<>();
+
             while(iterator.hasNext()){
                 Duck duck = iterator.next();
 
                 if(!duck.isAlive()){
-                    SwingUtilities.invokeLater(() -> {
-                        Main.getGameFrame().getGamePane().getShootingPane().remove(duck);
-                    });
-
+                    toRemove.add(duck);
                     iterator.remove();
                     continue;
                 }
@@ -48,6 +49,16 @@ public class GameLoop extends Thread {
                     }
                 }
             }
+
+            for(Duck duck : toRemove){
+                SwingUtilities.invokeLater(() -> {
+                    Main.getGameFrame().getGamePane().getShootingPane().remove(duck);
+                });
+            }
+
+            SwingUtilities.invokeLater(() -> {
+                Main.getGameFrame().getGamePane().getShootingPane().updateUI();
+            });
 
             try {
                 sleep(1000 / Settings.fps);

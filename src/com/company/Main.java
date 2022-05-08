@@ -3,6 +3,7 @@ package com.company;
 import com.company.game.GameTime;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.IOException;
 
 public class Main {
@@ -29,8 +30,8 @@ public class Main {
 
         try{
             Controllers.getLeaderboardController().load();
-            Textures.load();
-        } catch (IOException | ClassNotFoundException e) {
+            Assets.load();
+        } catch (IOException | ClassNotFoundException | FontFormatException e) {
             e.printStackTrace();
         }
 
