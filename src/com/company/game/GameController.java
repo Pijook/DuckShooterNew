@@ -1,12 +1,14 @@
 package com.company.game;
 
-import com.company.Controllers;
-import com.company.Frame;
-import com.company.Main;
-import com.company.Settings;
+import com.company.*;
 import com.company.duck.Duck;
 
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
 import javax.swing.*;
+import java.applet.AudioClip;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -15,6 +17,8 @@ public class GameController {
     private final ArrayList<Duck> spawnedDucks;
 
     private final GameLoop gameLoop;
+
+    private Clip musicClip;
 
     private int spawnRate;
     private int tempRate;
@@ -37,12 +41,14 @@ public class GameController {
         damageUpgrade = 0;
     }
 
-    public void reset(){
+    public void reset() throws LineUnavailableException, IOException {
         time = 0;
         lives = Settings.lives;
         score = 0;
         damage = Settings.baseDamage;
         ammo = Settings.baseAmmo;
+        musicClip = AudioSystem.getClip();
+        musicClip.open(Assets.peacefulDuckSong);
 
         spawnRate = 60;
         tempRate = 40;
@@ -128,11 +134,13 @@ public class GameController {
         if(gameActive){
             if(gameLoop.isInterrupted() || !gameLoop.isAlive()){
                 gameLoop.start();
+                musicClip.start();
             }
         }
         else{
             if(!gameLoop.isInterrupted()){
                 gameLoop.interrupt();
+                musicClip.stop();
             }
         }
     }

@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="DuckShooterNew:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/DuckShooterNew_jar</output-path>
+    <root id="archive" name="DuckShooterNew.jar">
+      <element id="module-output" name="DuckShooterNew" />
+    </root>
+  </artifact>
+</component>

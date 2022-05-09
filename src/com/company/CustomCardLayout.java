@@ -1,6 +1,8 @@
 package com.company;
 
+import javax.sound.sampled.LineUnavailableException;
 import java.awt.*;
+import java.io.IOException;
 
 public class CustomCardLayout extends CardLayout {
 
@@ -17,7 +19,13 @@ public class CustomCardLayout extends CardLayout {
             Main.getGameTime().interrupt();
         }
         else if(name.equalsIgnoreCase(Frame.GAME.name())){
-            Controllers.getGameController().reset();
+            try {
+                Controllers.getGameController().reset();
+            } catch (LineUnavailableException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             Controllers.getGameController().setGameActive(true);
             Controllers.getGameController().setValuesOnScreen();
             Main.getGameTime().start();

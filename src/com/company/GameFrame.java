@@ -19,6 +19,7 @@ public class GameFrame extends JFrame {
     private GamePane gamePane;
 
     public GameFrame(){
+        //*setIconImage(Assets.animatedDuckSmallImage.getImage());
         setVisible(true);
         setResizable(false);
         setTitle(Settings.title);

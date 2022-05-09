@@ -60,8 +60,8 @@ public abstract class Duck extends JButton {
     private boolean left;
 
     public Duck(int lives, int score, int damage, int speed) {
-        //super(Assets.animatedDuckBigImage);
-        super(new ImageIcon(Assets.duckTestImage));
+        super(Assets.animatedDuckBigImage);
+        //super(new ImageIcon(Assets.duckTestImage));
 
         setBorder(BorderFactory.createEmptyBorder());
         setContentAreaFilled(false);

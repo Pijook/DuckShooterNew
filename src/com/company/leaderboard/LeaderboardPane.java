@@ -1,5 +1,6 @@
 package com.company.leaderboard;
 
+import com.company.Assets;
 import com.company.Controllers;
 import com.company.Frame;
 import com.company.Main;
@@ -63,20 +64,6 @@ public class LeaderboardPane extends JPanel {
 
         add(returnButton, gridBagConstraints);
 
-        JButton debugButton = new JButton("Debug");
-
-        debugButton.addActionListener(new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String nickname = JOptionPane.showInputDialog(Main.getGameFrame(), "Enter your nickname");
-                int score = Integer.parseInt(JOptionPane.showInputDialog(Main.getGameFrame(), "Enter your score"));
-                Controllers.getLeaderboardController().add(nickname, score, 1,1,1);
-            }
-        });
-
-        gridBagConstraints.gridy = 2;
-        add(debugButton, gridBagConstraints);
-
     }
 
     public void updateList(){
@@ -92,6 +79,14 @@ public class LeaderboardPane extends JPanel {
                 return playerScoreView;
             }
         });
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        Image image = Assets.backgroundImage.getImage();//.getScaledInstance(1280, 720,Image.SCALE_DEFAULT);
+        g.drawImage(image, 0,0,this);
     }
 
     public JList<PlayerScore> getPlayerScoreJList() {

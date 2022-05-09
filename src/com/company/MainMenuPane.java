@@ -68,4 +68,11 @@ public class MainMenuPane extends JPanel {
         add(exitButton, gridBagConstraints);
     }
 
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        Image image = Assets.backgroundImage.getImage();//.getScaledInstance(1280, 720,Image.SCALE_DEFAULT);
+        g.drawImage(image, 0,0,this);
+    }
 }

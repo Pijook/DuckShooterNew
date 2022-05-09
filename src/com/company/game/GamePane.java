@@ -57,7 +57,7 @@ public class GamePane extends JPanel {
 
         shootingPane = new JPanel();
         shootingPane.setLayout(null);
-        shootingPane.setBackground(Color.ORANGE);
+        shootingPane.setOpaque(false);
         gridBagConstraints.gridy = 1;
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridwidth = 3;
@@ -114,6 +114,14 @@ public class GamePane extends JPanel {
 
         gridBagConstraints.gridx = 2;
         add(upgradeDamageButton, gridBagConstraints);
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        Image image = Assets.backgroundImage.getImage();//.getScaledInstance(1280, 720,Image.SCALE_DEFAULT);
+        g.drawImage(image, 0,0,this);
     }
 
     public JLabel getTimerLabel() {

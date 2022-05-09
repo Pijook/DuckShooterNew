@@ -2,6 +2,7 @@ package com.company;
 
 import com.company.game.GameTime;
 
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
@@ -39,7 +40,7 @@ public class Main {
         try{
             Controllers.getLeaderboardController().load();
             Assets.load();
-        } catch (IOException | ClassNotFoundException | FontFormatException e) {
+        } catch (IOException | ClassNotFoundException | FontFormatException | UnsupportedAudioFileException e) {
             e.printStackTrace();
         }
 
