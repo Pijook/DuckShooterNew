@@ -30,7 +30,7 @@ public class GamePane extends JPanel {
         gridBagConstraints.ipady = 60;
 
         timerLabel = new JLabel("Time");
-        timerLabel.setFont(Assets.rainyHeartsFont.deriveFont(16f));
+        timerLabel.setFont(Assets.rainyHeartsFont.deriveFont(28f));
         timerLabel.setHorizontalAlignment(SwingConstants.HORIZONTAL);
         gridBagConstraints.weightx = 1;
         gridBagConstraints.weighty = 0.5;
@@ -39,13 +39,13 @@ public class GamePane extends JPanel {
         add(timerLabel, gridBagConstraints);
 
         livesLabel = new JLabel("Lives");
-        livesLabel.setFont(Assets.rainyHeartsFont.deriveFont(16f));
+        livesLabel.setFont(Assets.rainyHeartsFont.deriveFont(28f));
         livesLabel.setHorizontalAlignment(SwingConstants.HORIZONTAL);
         gridBagConstraints.gridx = 1;
         add(livesLabel, gridBagConstraints);
 
         scoreLabel = new JLabel("Score");
-        scoreLabel.setFont(Assets.rainyHeartsFont.deriveFont(16f));
+        scoreLabel.setFont(Assets.rainyHeartsFont.deriveFont(28f));
         scoreLabel.setHorizontalAlignment(SwingConstants.HORIZONTAL);
         gridBagConstraints.gridx = 2;
         add(scoreLabel, gridBagConstraints);
@@ -77,7 +77,8 @@ public class GamePane extends JPanel {
 
 
 
-        ammoLabel = new JLabel("Ammo");
+        ammoLabel = new JLabel("Ammo: 0");
+        ammoLabel.setFont(Assets.rainyHeartsFont.deriveFont(28f));
         ammoLabel.setHorizontalAlignment(SwingConstants.HORIZONTAL);
         gridBagConstraints.gridx = 1;
         add(ammoLabel, gridBagConstraints);

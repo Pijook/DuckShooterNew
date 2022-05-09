@@ -4,6 +4,8 @@ import com.company.game.GameTime;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 
 public class Main {
@@ -19,9 +21,15 @@ public class Main {
 
             gameFrame = new GameFrame();
 
-        });
+            gameFrame.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosing(WindowEvent e) {
+                    save();
+                    super.windowClosing(e);
+                }
+            });
 
-        save();
+        });
 
     }
 
@@ -39,7 +47,7 @@ public class Main {
         gameTime = new GameTime();
     }
 
-    private static void save(){
+    public static void save(){
 
         try {
             Controllers.getLeaderboardController().save();

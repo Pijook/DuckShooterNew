@@ -5,10 +5,12 @@ import com.company.Controllers;
 public class GameTime extends Thread {
 
     private final GameController gameController;
+    private int counter;
 
     public GameTime(){
         //gameController = new GameController();
         gameController = Controllers.getGameController();
+        counter = 0;
     }
 
     @Override
@@ -17,6 +19,14 @@ public class GameTime extends Thread {
         while(!isInterrupted() && gameController.isGameActive()){
             try {
                 sleep(1000);
+                counter++;
+                if(counter == 5){
+                    if(gameController.getSpawnRate() > 10){
+                        gameController.setSpawnRate(gameController.getSpawnRate() - 5);
+                        counter = 0;
+                    }
+
+                }
             } catch (InterruptedException e) {
                 break;
             }

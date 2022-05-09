@@ -10,8 +10,10 @@ import java.awt.event.ActionListener;
 
 public class LeaderboardPane extends JPanel {
 
+    private JList<PlayerScore> playerScoreJList;
+
     public LeaderboardPane(){
-        JList<PlayerScore> playerScoreJList = new JList<>();
+        playerScoreJList = new JList<>();
 
         playerScoreJList.setModel(new LeaderboardModel());
 
@@ -41,4 +43,22 @@ public class LeaderboardPane extends JPanel {
         add(returnButton);
     }
 
+    public void updateList(){
+        playerScoreJList.setCellRenderer(new ListCellRenderer<PlayerScore>() {
+
+            final PlayerScoreView playerScoreView = new PlayerScoreView();
+
+            @Override
+            public Component getListCellRendererComponent(JList<? extends PlayerScore> list, PlayerScore value, int index, boolean isSelected, boolean cellHasFocus) {
+                if(value != null){
+                    playerScoreView.setPlayerScore(value);
+                }
+                return playerScoreView;
+            }
+        });
+    }
+
+    public JList<PlayerScore> getPlayerScoreJList() {
+        return playerScoreJList;
+    }
 }

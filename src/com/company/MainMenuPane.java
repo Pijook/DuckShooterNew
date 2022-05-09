@@ -40,7 +40,9 @@ public class MainMenuPane extends JPanel {
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                Main.save();
                 System.exit(0);
+                //Main.getGameFrame().dispose();
             }
         });
 

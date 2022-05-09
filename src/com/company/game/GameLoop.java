@@ -1,5 +1,6 @@
 package com.company.game;
 
+import com.company.Controllers;
 import com.company.Main;
 import com.company.Settings;
 import com.company.duck.Duck;
@@ -59,6 +60,15 @@ public class GameLoop extends Thread {
             SwingUtilities.invokeLater(() -> {
                 Main.getGameFrame().getGamePane().getShootingPane().updateUI();
             });
+
+            if(gameController.getTempRate() >= gameController.getSpawnRate()){
+                gameController.spawnDuck();
+                gameController.setTempRate(0);
+            }
+
+            gameController.setTempRate(gameController.getTempRate() + 1);
+
+            //System.out.println(gameController.getTempRate());
 
             try {
                 sleep(1000 / Settings.fps);

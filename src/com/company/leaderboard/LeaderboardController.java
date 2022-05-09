@@ -1,8 +1,9 @@
 package com.company.leaderboard;
 
+import com.company.Main;
+
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class LeaderboardController {
 
@@ -13,9 +14,11 @@ public class LeaderboardController {
     }
 
     public void load() throws IOException, ClassNotFoundException {
+        System.out.println("Loading...");
         File file = new File("leaderboard.txt");
 
         if(!file.exists()){
+            System.out.println("File doesn't exists!");
             playerScores.add(new PlayerScore("Pijok_", 100, 1,1, 50));
             playerScores.add(new PlayerScore("Fade", 140, 1,3, 530));
             playerScores.add(new PlayerScore("Fezio", 150, 2,1, 90));
@@ -30,17 +33,36 @@ public class LeaderboardController {
     }
 
     public void save() throws IOException {
+        System.out.println("Saving...");
         File file = new File("leaderboard.txt");
 
-        if(!file.exists()){
-            file.createNewFile();
+        if(file.exists()){
+           file.delete();
         }
+        file.createNewFile();
 
         FileOutputStream fileOutputStream = new FileOutputStream(file);
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
 
-        objectOutputStream.writeObject(playerScores);;
+        objectOutputStream.writeObject(playerScores);
         objectOutputStream.close();
+    }
+
+    public void add(String nickname, int score, int reloadUpgrade, int damageUpgrade, int time){
+        playerScores.add(new PlayerScore(nickname, score, reloadUpgrade, damageUpgrade, time));
+
+        playerScores.sort(new Comparator<>() {
+            @Override
+            public int compare(PlayerScore o1, PlayerScore o2) {
+                return o1.score().compareTo(o2.score());
+            }
+        });
+
+        for(PlayerScore playerScore : playerScores){
+            System.out.println(playerScore);
+        }
+
+        Main.getGameFrame().getLeaderboardPane().updateList();
     }
 
     public List<PlayerScore> getPlayerScores() {

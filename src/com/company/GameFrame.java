@@ -5,6 +5,8 @@ import com.company.leaderboard.LeaderboardPane;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class GameFrame extends JFrame {
 
@@ -32,8 +34,6 @@ public class GameFrame extends JFrame {
 
         add(mainPane);
     }
-
-
 
     public CustomCardLayout getCardLayout() {
         return cardLayout;

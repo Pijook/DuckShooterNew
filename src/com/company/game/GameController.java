@@ -1,10 +1,12 @@
 package com.company.game;
 
 import com.company.Controllers;
+import com.company.Frame;
 import com.company.Main;
 import com.company.Settings;
 import com.company.duck.Duck;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -13,6 +15,12 @@ public class GameController {
     private final ArrayList<Duck> spawnedDucks;
 
     private final GameLoop gameLoop;
+
+    private int spawnRate;
+    private int tempRate;
+
+    private int reloadUpgrade;
+    private int damageUpgrade;
 
     private int time;
     private int lives;
@@ -28,9 +36,23 @@ public class GameController {
         time = 0;
         lives = Settings.lives;
         score = 0;
+
+        spawnRate = 150;
+        tempRate = 0;
+    }
+
+    public void end(){
+        setGameActive(false);
+
+        String nickname = JOptionPane.showInputDialog(Main.getGameFrame(), "Enter your nickname");
+
+        Controllers.getLeaderboardController().add(nickname, score, reloadUpgrade, damageUpgrade, time);
+
+        Main.getGameFrame().getCardLayout().show(Main.getGameFrame().getMainPane(), Frame.MAIN_MENU.name());
     }
 
     public void spawnDuck(){
+        System.out.println("Spawning duck");
         Duck duck = Duck.spawnNewDuck();
         spawnedDucks.add(duck);
         Main.getGameFrame().getGamePane().getShootingPane().add(duck);
@@ -58,6 +80,9 @@ public class GameController {
     public void setLives(int lives) {
         this.lives = lives;
         Main.getGameFrame().getGamePane().getLivesLabel().setText("Lives: " + this.lives);
+        if(lives <= 0){
+            end();
+        }
     }
 
     public int getScore() {
@@ -87,7 +112,27 @@ public class GameController {
         }
     }
 
-    public ArrayList<Duck> getSpawnedDucks() {
+    public GameLoop getGameLoop() {
+        return gameLoop;
+    }
+
+    public int getSpawnRate() {
+        return spawnRate;
+    }
+
+    public void setSpawnRate(int spawnRate) {
+        this.spawnRate = spawnRate;
+    }
+
+    public int getTempRate() {
+        return tempRate;
+    }
+
+    public void setTempRate(int tempRate) {
+        this.tempRate = tempRate;
+    }
+
+    public synchronized ArrayList<Duck> getSpawnedDucks() {
         return spawnedDucks;
     }
 }

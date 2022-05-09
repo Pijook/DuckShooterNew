@@ -9,7 +9,7 @@ public class Settings {
     public static int fps = 30;
 
     //
-    public static int lives = 10;
+    public static int lives = 1;
     public static int baseDamage;
 
 }

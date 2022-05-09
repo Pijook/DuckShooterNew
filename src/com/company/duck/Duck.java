@@ -1,5 +1,7 @@
 package com.company.duck;
 
+import com.company.Controllers;
+import com.company.Main;
 import com.company.Settings;
 import com.company.Assets;
 
@@ -24,22 +26,30 @@ public abstract class Duck extends JButton {
         }
 
         boolean isLeft = random.nextBoolean();
+
+        int bound = Main.getGameFrame().getGamePane().getShootingPane().getHeight();
+        int difference = Main.getGameFrame().getGamePane().getHeight() - Main.getGameFrame().getGamePane().getShootingPane().getHeight();
+        difference = difference/2;
+
         Position position;
         if(isLeft){
             position = new Position(
                     Settings.width,
-                    random.nextInt(Settings.height - 100) + 50
+                    random.nextInt(bound) - difference
             );
         }
         else{
             position = new Position(
                     0,
-                    random.nextInt(Settings.height - 100) + 50
+                    random.nextInt(bound) - difference
             );
         }
 
         duck.setPosition(position);
         duck.setLeft(isLeft);
+
+        System.out.println(position.getY());
+
         return duck;
     }
 
@@ -53,7 +63,8 @@ public abstract class Duck extends JButton {
     private boolean left;
 
     public Duck(int lives, int score, int damage, int speed) {
-        super(Assets.animatedDuckBigImage);
+        //super(Assets.animatedDuckBigImage);
+        super(new ImageIcon(Assets.duckTestImage));
 
         setBorder(BorderFactory.createEmptyBorder());
         setContentAreaFilled(false);
@@ -74,7 +85,7 @@ public abstract class Duck extends JButton {
             position.move(speed, 0);
         }
 
-        setBounds(position.getX(), position.getY(), Assets.animatedDuckBigImage.getIconWidth(), Assets.animatedDuckBigImage.getIconHeight());
+        setBounds(position.getX(), position.getY(), 100, 150);
     }
 
     public void setLives(int lives) {
