@@ -1,18 +1,20 @@
 package com.company.game;
 
+import com.company.Controllers;
+
 public class GameTime extends Thread {
 
     private final GameController gameController;
 
     public GameTime(){
-        gameController = new GameController();
+        //gameController = new GameController();
+        gameController = Controllers.getGameController();
     }
 
     @Override
     public void run() {
         super.run();
         while(!isInterrupted() && gameController.isGameActive()){
-            System.out.println("abc");
             try {
                 sleep(1000);
             } catch (InterruptedException e) {
@@ -20,8 +22,5 @@ public class GameTime extends Thread {
             }
             gameController.setTime(gameController.getTime() + 1);
         }
-        System.out.println("erorror");
-        System.out.println(isInterrupted());
-        System.out.println(gameController.isGameActive());
     }
 }

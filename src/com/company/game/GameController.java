@@ -25,11 +25,9 @@ public class GameController {
     }
 
     public void reset(){
-        System.out.println("Resseting!");
         time = 0;
         lives = Settings.lives;
         score = 0;
-        setGameActive(true);
     }
 
     public void spawnDuck(){
@@ -50,7 +48,6 @@ public class GameController {
 
     public void setTime(int time) {
         this.time = time;
-        System.out.println(this.time);
         Main.getGameFrame().getGamePane().getTimerLabel().setText("Time: " + this.time);
     }
 

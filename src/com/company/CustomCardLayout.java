@@ -17,8 +17,8 @@ public class CustomCardLayout extends CardLayout {
             Main.getGameTime().interrupt();
         }
         else if(name.equalsIgnoreCase(Frame.GAME.name())){
-            System.out.println("Startig");
             Controllers.getGameController().reset();
+            Controllers.getGameController().setGameActive(true);
             Controllers.getGameController().setValuesOnScreen();
             Main.getGameTime().start();
         }

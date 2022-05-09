@@ -1,5 +1,6 @@
 package com.company.game;
 
+import com.company.Assets;
 import com.company.Controllers;
 
 import javax.swing.*;
@@ -24,13 +25,12 @@ public class GamePane extends JPanel {
 
         GridBagConstraints gridBagConstraints = new GridBagConstraints();
 
-        //gridBagConstraints.gridwidth = GridBagConstraints.;
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-        //gridBagConstraints.anchor = GridBagConstraints.CENTER;
 
         gridBagConstraints.ipady = 60;
 
         timerLabel = new JLabel("Time");
+        timerLabel.setFont(Assets.rainyHeartsFont.deriveFont(16f));
         timerLabel.setHorizontalAlignment(SwingConstants.HORIZONTAL);
         gridBagConstraints.weightx = 1;
         gridBagConstraints.weighty = 0.5;
@@ -39,11 +39,13 @@ public class GamePane extends JPanel {
         add(timerLabel, gridBagConstraints);
 
         livesLabel = new JLabel("Lives");
+        livesLabel.setFont(Assets.rainyHeartsFont.deriveFont(16f));
         livesLabel.setHorizontalAlignment(SwingConstants.HORIZONTAL);
         gridBagConstraints.gridx = 1;
         add(livesLabel, gridBagConstraints);
 
         scoreLabel = new JLabel("Score");
+        scoreLabel.setFont(Assets.rainyHeartsFont.deriveFont(16f));
         scoreLabel.setHorizontalAlignment(SwingConstants.HORIZONTAL);
         gridBagConstraints.gridx = 2;
         add(scoreLabel, gridBagConstraints);
