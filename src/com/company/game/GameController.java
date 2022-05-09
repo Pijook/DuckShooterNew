@@ -22,6 +22,7 @@ public class GameController {
 
     private int spawnRate;
     private int tempRate;
+    private int decreaseRate;
 
     private int ammoUpgrade;
     private int damageUpgrade;
@@ -49,9 +50,26 @@ public class GameController {
         ammo = Settings.baseAmmo;
         musicClip = AudioSystem.getClip();
         musicClip.open(Assets.peacefulDuckSong);
+    }
 
-        spawnRate = 60;
-        tempRate = 40;
+    public void setDifficulty(Difficulty difficulty){
+        switch (difficulty){
+            case EASY -> {
+                spawnRate = 200;
+                tempRate = 180;
+                decreaseRate = 2;
+            }
+            case NORMAL -> {
+                spawnRate = 150;
+                tempRate = 120;
+                decreaseRate = 3;
+            }
+            case DOOM -> {
+                spawnRate = 100;
+                tempRate = 90;
+                decreaseRate = 10;
+            }
+        }
     }
 
     public void end(){
@@ -183,5 +201,13 @@ public class GameController {
 
     public void setAmmoUpgrade(int ammoUpgrade) {
         this.ammoUpgrade = ammoUpgrade;
+    }
+
+    public int getDecreaseRate() {
+        return decreaseRate;
+    }
+
+    public void setDecreaseRate(int decreaseRate) {
+        this.decreaseRate = decreaseRate;
     }
 }

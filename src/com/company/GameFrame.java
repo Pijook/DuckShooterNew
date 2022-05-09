@@ -1,5 +1,6 @@
 package com.company;
 
+import com.company.game.DifficultyPane;
 import com.company.game.GamePane;
 import com.company.leaderboard.LeaderboardPane;
 
@@ -17,6 +18,7 @@ public class GameFrame extends JFrame {
     private MainMenuPane mainMenuPane;
     private LeaderboardPane leaderboardPane;
     private GamePane gamePane;
+    private DifficultyPane difficultyPane;
 
     public GameFrame(){
         //*setIconImage(Assets.animatedDuckSmallImage.getImage());
@@ -33,6 +35,7 @@ public class GameFrame extends JFrame {
         mainPane.add(mainMenuPane = new MainMenuPane(), Frame.MAIN_MENU.name());
         mainPane.add(leaderboardPane = new LeaderboardPane(), Frame.LEADERBOARD.name());
         mainPane.add(gamePane = new GamePane(), Frame.GAME.name());
+        mainPane.add(difficultyPane = new DifficultyPane(), Frame.DIFFICULTY.name());
 
         add(mainPane);
     }

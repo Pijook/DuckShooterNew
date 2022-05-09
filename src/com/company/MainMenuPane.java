@@ -22,7 +22,7 @@ public class MainMenuPane extends JPanel {
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Main.getGameFrame().getCardLayout().show(Main.getGameFrame().getMainPane(), Frame.GAME.name());
+                Main.getGameFrame().getCardLayout().show(Main.getGameFrame().getMainPane(), Frame.DIFFICULTY.name());
             }
         });
 

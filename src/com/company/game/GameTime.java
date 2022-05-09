@@ -22,7 +22,7 @@ public class GameTime extends Thread {
                 counter++;
                 if(counter == 5){
                     if(gameController.getSpawnRate() > 10){
-                        gameController.setSpawnRate(gameController.getSpawnRate() - 2);
+                        gameController.setSpawnRate(gameController.getSpawnRate() - gameController.getDecreaseRate());
                         counter = 0;
                     }
 
