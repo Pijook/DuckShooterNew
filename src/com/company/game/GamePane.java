@@ -2,6 +2,7 @@ package com.company.game;
 
 import com.company.Assets;
 import com.company.Controllers;
+import com.company.Settings;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,17 +11,21 @@ import java.awt.event.ActionListener;
 
 public class GamePane extends JPanel {
 
-    private JLabel timerLabel;
-    private JLabel livesLabel;
-    private JLabel scoreLabel;
-    private JLabel ammoLabel;
+    private final GameController gameController;
 
-    private JPanel shootingPane;
+    private final JLabel timerLabel;
+    private final JLabel livesLabel;
+    private final JLabel scoreLabel;
 
-    private JButton upgradeReloadTimeButton;
-    private JButton upgradeDamageButton;
+    private final JPanel shootingPane;
+
+    private final JButton ammoButton;
+    private final JButton upgradeAmmoButton;
+    private final JButton upgradeDamageButton;
 
     public GamePane(){
+        gameController = Controllers.getGameController();
+
         setLayout(new GridBagLayout());
 
         GridBagConstraints gridBagConstraints = new GridBagConstraints();
@@ -61,29 +66,52 @@ public class GamePane extends JPanel {
 
         gridBagConstraints.ipady = 60;
 
-        upgradeReloadTimeButton = new JButton("Upgrade reload time!");
+        upgradeAmmoButton = new JButton("<html><center>Upgrade reload time!<br>(" + Settings.ammoUpgradeCost + ")</center></html>");
+        upgradeAmmoButton.setFont(Assets.rainyHeartsFont.deriveFont(24f));
 
-        upgradeReloadTimeButton.addActionListener(new ActionListener() {
+        upgradeAmmoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Controllers.getGameController().spawnDuck();
+                if(gameController.getScore() >= Settings.ammoUpgradeCost){
+                    gameController.setAmmoUpgrade(gameController.getAmmoUpgrade() + 1);
+                    gameController.setScore(gameController.getScore() - Settings.ammoUpgradeCost);
+                }
             }
         });
 
         gridBagConstraints.gridwidth = 1;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.gridx = 0;
-        add(upgradeReloadTimeButton, gridBagConstraints);
+        add(upgradeAmmoButton, gridBagConstraints);
 
+        ammoButton = new JButton("Ammo: " + Controllers.getGameController().getAmmo());
+        ammoButton.setFont(Assets.rainyHeartsFont.deriveFont(28f));
+        ammoButton.setHorizontalAlignment(SwingConstants.HORIZONTAL);
 
+        ammoButton.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Controllers.getGameController().setAmmo((Settings.baseAmmo + Controllers.getGameController().getAmmoUpgrade()));
+            }
+        });
 
-        ammoLabel = new JLabel("Ammo: 0");
-        ammoLabel.setFont(Assets.rainyHeartsFont.deriveFont(28f));
-        ammoLabel.setHorizontalAlignment(SwingConstants.HORIZONTAL);
         gridBagConstraints.gridx = 1;
-        add(ammoLabel, gridBagConstraints);
+        add(ammoButton, gridBagConstraints);
 
-        upgradeDamageButton = new JButton("Upgrade damage!");
+        upgradeDamageButton = new JButton("<html><center>Upgrade damage!<br>(" + Settings.damageUpgradeCost + ")</center></html>");
+        upgradeDamageButton.setFont(Assets.rainyHeartsFont.deriveFont(24f));
+        upgradeDamageButton.setHorizontalAlignment(SwingConstants.HORIZONTAL);
+
+        upgradeDamageButton.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(gameController.getScore() >= Settings.damageUpgradeCost){
+                    gameController.setDamageUpgrade(gameController.getDamageUpgrade() + 1);
+                    gameController.setScore(gameController.getScore() - Settings.damageUpgradeCost);
+                }
+            }
+        });
+
         gridBagConstraints.gridx = 2;
         add(upgradeDamageButton, gridBagConstraints);
     }
@@ -100,19 +128,20 @@ public class GamePane extends JPanel {
         return scoreLabel;
     }
 
-    public JLabel getAmmoLabel() {
-        return ammoLabel;
-    }
-
     public JPanel getShootingPane() {
         return shootingPane;
     }
 
-    public JButton getUpgradeReloadTimeButton() {
-        return upgradeReloadTimeButton;
+    public JButton getUpgradeAmmoButton() {
+        return upgradeAmmoButton;
     }
 
     public JButton getUpgradeDamageButton() {
         return upgradeDamageButton;
     }
+
+    public JButton getAmmoButton() {
+        return ammoButton;
+    }
+
 }

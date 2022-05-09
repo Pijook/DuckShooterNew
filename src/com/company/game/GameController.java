@@ -19,9 +19,11 @@ public class GameController {
     private int spawnRate;
     private int tempRate;
 
-    private int reloadUpgrade;
+    private int ammoUpgrade;
     private int damageUpgrade;
 
+    private int ammo;
+    private int damage;
     private int time;
     private int lives;
     private int score;
@@ -30,15 +32,20 @@ public class GameController {
     public GameController(){
         spawnedDucks = new ArrayList<>();
         gameLoop = new GameLoop(this);
+
+        ammoUpgrade = 0;
+        damageUpgrade = 0;
     }
 
     public void reset(){
         time = 0;
         lives = Settings.lives;
         score = 0;
+        damage = Settings.baseDamage;
+        ammo = Settings.baseAmmo;
 
-        spawnRate = 150;
-        tempRate = 0;
+        spawnRate = 60;
+        tempRate = 40;
     }
 
     public void end(){
@@ -46,9 +53,9 @@ public class GameController {
 
         String nickname = JOptionPane.showInputDialog(Main.getGameFrame(), "Enter your nickname");
 
-        Controllers.getLeaderboardController().add(nickname, score, reloadUpgrade, damageUpgrade, time);
+        Controllers.getLeaderboardController().add(nickname, score, ammoUpgrade, damageUpgrade, time);
 
-        Main.getGameFrame().getCardLayout().show(Main.getGameFrame().getMainPane(), Frame.MAIN_MENU.name());
+        Main.getGameFrame().getCardLayout().show(Main.getGameFrame().getMainPane(), Frame.LEADERBOARD.name());
     }
 
     public void spawnDuck(){
@@ -62,6 +69,7 @@ public class GameController {
         setTime(time);
         setLives(lives);
         setScore(score);
+        setAmmo(ammo);
     }
 
     public int getTime() {
@@ -92,6 +100,23 @@ public class GameController {
     public void setScore(int score) {
         this.score = score;
         Main.getGameFrame().getGamePane().getScoreLabel().setText("Score: " + this.score);
+    }
+
+    public int getAmmo() {
+        return ammo;
+    }
+
+    public void setAmmo(int ammo) {
+        this.ammo = ammo;
+        Main.getGameFrame().getGamePane().getAmmoButton().setText("Ammo: " + this.ammo);
+    }
+
+    public int getDamage() {
+        return damage;
+    }
+
+    public void setDamage(int damage) {
+        this.damage = damage;
     }
 
     public boolean isGameActive() {
@@ -134,5 +159,21 @@ public class GameController {
 
     public synchronized ArrayList<Duck> getSpawnedDucks() {
         return spawnedDucks;
+    }
+
+    public int getDamageUpgrade() {
+        return damageUpgrade;
+    }
+
+    public void setDamageUpgrade(int damageUpgrade) {
+        this.damageUpgrade = damageUpgrade;
+    }
+
+    public int getAmmoUpgrade() {
+        return ammoUpgrade;
+    }
+
+    public void setAmmoUpgrade(int ammoUpgrade) {
+        this.ammoUpgrade = ammoUpgrade;
     }
 }

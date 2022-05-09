@@ -9,7 +9,11 @@ public class Settings {
     public static int fps = 30;
 
     //
-    public static int lives = 1;
-    public static int baseDamage;
+    public static int lives = 10;
+    public static int baseDamage = 1;
+    public static int baseAmmo = 5;
+
+    public static int ammoUpgradeCost = 500;
+    public static int damageUpgradeCost = 1000;
 
 }

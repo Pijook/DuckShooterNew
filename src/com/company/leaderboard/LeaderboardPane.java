@@ -1,5 +1,6 @@
 package com.company.leaderboard;
 
+import com.company.Controllers;
 import com.company.Frame;
 import com.company.Main;
 
@@ -21,8 +22,11 @@ public class LeaderboardPane extends JPanel {
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = GridBagConstraints.CENTER;
 
+
         playerScoreJList = new JList<>();
         leaderboardModel = new LeaderboardModel();
+
+        JScrollPane jScrollPane = new JScrollPane(playerScoreJList);
 
         playerScoreJList.setModel(leaderboardModel);
 
@@ -52,12 +56,27 @@ public class LeaderboardPane extends JPanel {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
 
-        add(playerScoreJList, gridBagConstraints);
+        add(jScrollPane, gridBagConstraints);
 
         gridBagConstraints.insets = new Insets(25, 0, 0, 0);
         gridBagConstraints.gridy = 1;
 
         add(returnButton, gridBagConstraints);
+
+        JButton debugButton = new JButton("Debug");
+
+        debugButton.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String nickname = JOptionPane.showInputDialog(Main.getGameFrame(), "Enter your nickname");
+                int score = Integer.parseInt(JOptionPane.showInputDialog(Main.getGameFrame(), "Enter your score"));
+                Controllers.getLeaderboardController().add(nickname, score, 1,1,1);
+            }
+        });
+
+        gridBagConstraints.gridy = 2;
+        add(debugButton, gridBagConstraints);
+
     }
 
     public void updateList(){

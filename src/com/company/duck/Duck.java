@@ -47,9 +47,6 @@ public abstract class Duck extends JButton {
 
         duck.setPosition(position);
         duck.setLeft(isLeft);
-
-        System.out.println(position.getY());
-
         return duck;
     }
 
