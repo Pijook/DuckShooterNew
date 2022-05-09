@@ -54,7 +54,7 @@ public class LeaderboardController {
         playerScores.sort(new Comparator<>() {
             @Override
             public int compare(PlayerScore o1, PlayerScore o2) {
-                return o1.score().compareTo(o2.score());
+                return o2.score().compareTo(o1.score());
             }
         });
 
@@ -63,6 +63,7 @@ public class LeaderboardController {
         }
 
         Main.getGameFrame().getLeaderboardPane().updateList();
+        //Main.getGameFrame().getLeaderboardPane().getLeaderboardModel().setPlayerScores(playerScores);
     }
 
     public List<PlayerScore> getPlayerScores() {

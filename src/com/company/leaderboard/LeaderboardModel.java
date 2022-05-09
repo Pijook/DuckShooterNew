@@ -33,4 +33,8 @@ public class LeaderboardModel implements ListModel<PlayerScore> {
     public void removeListDataListener(ListDataListener l) {
 
     }
+
+    public void setPlayerScores(List<PlayerScore> playerScores) {
+        this.playerScores = playerScores;
+    }
 }

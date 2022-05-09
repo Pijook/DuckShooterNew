@@ -11,11 +11,20 @@ import java.awt.event.ActionListener;
 public class LeaderboardPane extends JPanel {
 
     private JList<PlayerScore> playerScoreJList;
+    private LeaderboardModel leaderboardModel;
 
     public LeaderboardPane(){
-        playerScoreJList = new JList<>();
+        setLayout(new GridBagLayout());
 
-        playerScoreJList.setModel(new LeaderboardModel());
+        GridBagConstraints gridBagConstraints = new GridBagConstraints();
+
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = GridBagConstraints.CENTER;
+
+        playerScoreJList = new JList<>();
+        leaderboardModel = new LeaderboardModel();
+
+        playerScoreJList.setModel(leaderboardModel);
 
         playerScoreJList.setCellRenderer(new ListCellRenderer<PlayerScore>() {
 
@@ -39,8 +48,16 @@ public class LeaderboardPane extends JPanel {
             }
         });
 
-        add(playerScoreJList);
-        add(returnButton);
+        gridBagConstraints.ipadx = 100;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+
+        add(playerScoreJList, gridBagConstraints);
+
+        gridBagConstraints.insets = new Insets(25, 0, 0, 0);
+        gridBagConstraints.gridy = 1;
+
+        add(returnButton, gridBagConstraints);
     }
 
     public void updateList(){
@@ -60,5 +77,9 @@ public class LeaderboardPane extends JPanel {
 
     public JList<PlayerScore> getPlayerScoreJList() {
         return playerScoreJList;
+    }
+
+    public LeaderboardModel getLeaderboardModel() {
+        return leaderboardModel;
     }
 }
