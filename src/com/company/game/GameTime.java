@@ -21,8 +21,10 @@ public class GameTime extends Thread {
                 sleep(1000);
                 counter++;
                 if(counter == 5){
-                    if(gameController.getSpawnRate() > 10){
-                        gameController.setSpawnRate(gameController.getSpawnRate() - gameController.getDecreaseRate());
+                    if(gameController.getDuckSpawnRate().getSpawnRate() > 10){
+                        //gameController.setSpawnRate(gameController.getSpawnRate() - gameController.getDecreaseRate());
+                        gameController.getDuckSpawnRate().decreaseSpawnRate();
+                        gameController.getObstacleSpawnRate().decreaseSpawnRate();
                         counter = 0;
                     }
 

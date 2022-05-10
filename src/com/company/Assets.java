@@ -12,14 +12,25 @@ import java.io.IOException;
 
 public class Assets {
 
+    /*
+        Textures
+     */
     public static BufferedImage duckTestImage;
     public static ImageIcon animatedDuckImage;
     public static ImageIcon animatedDuckSmallImage;
     public static ImageIcon animatedDuckBigImage;
     public static ImageIcon backgroundImage;
 
+    public static ImageIcon[] clouds;
+
+    /*
+        Music
+     */
     public static AudioInputStream peacefulDuckSong;
 
+    /*
+        Fonts
+     */
     public static Font rainyHeartsFont;
 
     public static void load() throws IOException, FontFormatException, UnsupportedAudioFileException {
@@ -40,7 +51,12 @@ public class Assets {
         animatedDuckSmallImage = new ImageIcon(Toolkit.getDefaultToolkit().createImage("resources/textures/duckAnimatedSmall.gif"));
         animatedDuckBigImage = new ImageIcon(Toolkit.getDefaultToolkit().createImage("resources/textures/duckAnimatedBig.gif"));
         backgroundImage = new ImageIcon(Toolkit.getDefaultToolkit().createImage("resources/textures/backgroundBig.png"));
-        //System.out.println(duckTestImage.getIconHeight());
+
+        clouds = new ImageIcon[8];
+        for(int i = 1; i <= 8; i++){
+            clouds[i - 1] = new ImageIcon(Toolkit.getDefaultToolkit().createImage("resources/textures/obstacles/cloudBig" + i + ".png"));
+        }
+        //clouds[0] = new ImageIcon(Toolkit.getDefaultToolkit().createImage("resources/textures/obstacles/cloudBig1.png"));
     }
 
     private static void loadSounds() throws UnsupportedAudioFileException, IOException {

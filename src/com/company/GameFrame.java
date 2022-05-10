@@ -12,6 +12,7 @@ import java.awt.event.WindowEvent;
 public class GameFrame extends JFrame {
 
     private CustomCardLayout cardLayout;
+    //private CardLayout cardLayout;
 
     //Panes
     private JPanel mainPane;
@@ -30,6 +31,7 @@ public class GameFrame extends JFrame {
         setLocationRelativeTo(null);
 
         mainPane = new JPanel();
+        //mainPane.setLayout(cardLayout = new CustomCardLayout(Frame.MAIN_MENU));
         mainPane.setLayout(cardLayout = new CustomCardLayout(Frame.MAIN_MENU));
 
         mainPane.add(mainMenuPane = new MainMenuPane(), Frame.MAIN_MENU.name());
@@ -43,6 +45,10 @@ public class GameFrame extends JFrame {
     public CustomCardLayout getCardLayout() {
         return cardLayout;
     }
+
+    /*public CardLayout getCardLayout() {
+        return cardLayout;
+    }*/
 
     public JPanel getMainPane() {
         return mainPane;
@@ -58,5 +64,9 @@ public class GameFrame extends JFrame {
 
     public GamePane getGamePane() {
         return gamePane;
+    }
+
+    public DifficultyPane getDifficultyPane() {
+        return difficultyPane;
     }
 }

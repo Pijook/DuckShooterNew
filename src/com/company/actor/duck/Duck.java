@@ -1,29 +1,18 @@
-package com.company.duck;
+package com.company.actor.duck;
 
-import com.company.Controllers;
 import com.company.Main;
 import com.company.Settings;
 import com.company.Assets;
+import com.company.actor.MovingActor;
 
 import javax.swing.*;
 import java.util.Random;
 
-public abstract class Duck extends JButton {
+public abstract class Duck extends MovingActor {
 
     public static Duck spawnNewDuck(){
         Random random = new Random();
         int chance = random.nextInt(100);
-
-        Duck duck;
-        if(chance <= 5){
-            duck = new HardDuck();
-        }
-        else if(chance <= 35){
-            duck = new MediumDuck();
-        }
-        else{
-            duck = new EasyDuck();
-        }
 
         boolean isLeft = random.nextBoolean();
 
@@ -45,68 +34,45 @@ public abstract class Duck extends JButton {
             );
         }
 
-        duck.setPosition(position);
-        duck.setLeft(isLeft);
+        Duck duck;
+        if(chance <= 5){
+            duck = new HardDuck(position, isLeft);
+        }
+        else if(chance <= 35){
+            duck = new MediumDuck(position, isLeft);
+        }
+        else{
+            duck = new EasyDuck(position, isLeft);
+        }
+
+        //duck.setLeft(isLeft);
         return duck;
     }
 
     private int lives;
     private final int score;
     private final int damage;
-    private final int speed;
     private boolean alive;
 
-    private Position position;
-    private boolean left;
-
-    public Duck(int lives, int score, int damage, int speed) {
-        super(Assets.animatedDuckBigImage);
-        //super(new ImageIcon(Assets.duckTestImage));
-
-        setBorder(BorderFactory.createEmptyBorder());
-        setContentAreaFilled(false);
+    public Duck(int lives, int score, int damage, int speed, Position position, boolean left) {
+        super(Assets.animatedDuckBigImage, position, left, speed);
         this.lives = lives;
         this.score = score;
         this.damage = damage;
-        this.speed = speed;
         this.alive = true;
-        setText("Hits " + lives);
+        setBorder(BorderFactory.createEmptyBorder());
+        setContentAreaFilled(false);
         addActionListener(new DuckAction(this));
     }
 
+    /*@Override
     public void act(){
-        if(isLeft()){
-            position.move(-speed, 0);
-        }
-        else{
-            position.move(speed, 0);
-        }
 
-        setBounds(position.getX(), position.getY(), 100, 150);
-    }
+        //setBounds(position.getX(), position.getY(), 100, 150);
+    }*/
 
     public void setLives(int lives) {
         this.lives = lives;
-    }
-
-    public int getSpeed() {
-        return speed;
-    }
-
-    public Position getPosition() {
-        return position;
-    }
-
-    public void setPosition(Position position) {
-        this.position = position;
-    }
-
-    public boolean isLeft() {
-        return left;
-    }
-
-    public void setLeft(boolean left) {
-        this.left = left;
     }
 
     public int getLives() {

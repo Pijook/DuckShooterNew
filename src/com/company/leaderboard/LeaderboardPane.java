@@ -13,60 +13,75 @@ import java.awt.event.ActionListener;
 public class LeaderboardPane extends JPanel {
 
     private JList<PlayerScore> playerScoreJList;
+    private JScrollPane jScrollPane;
     private LeaderboardModel leaderboardModel;
+    private JButton returnButton;
 
     public LeaderboardPane(){
-        setLayout(new GridBagLayout());
+        createElements();
+        createLayout();
+    }
 
-        GridBagConstraints gridBagConstraints = new GridBagConstraints();
-
-        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = GridBagConstraints.CENTER;
-
-
-        playerScoreJList = new JList<>();
+    private void createElements(){
+        /*
+            Leaderboard model
+         */
         leaderboardModel = new LeaderboardModel();
 
-        JScrollPane jScrollPane = new JScrollPane(playerScoreJList);
-
+        /*
+            PlayerScore list
+         */
+        playerScoreJList = new JList<>();
         playerScoreJList.setModel(leaderboardModel);
+        playerScoreJList.setOpaque(false);
+        setUpCellRenderer();
 
-        playerScoreJList.setCellRenderer(new ListCellRenderer<PlayerScore>() {
+        /*
+            Scrolling pane
+         */
+        jScrollPane = new JScrollPane(playerScoreJList);
+        jScrollPane.setOpaque(false);
 
-            final PlayerScoreView playerScoreView = new PlayerScoreView();
-
-            @Override
-            public Component getListCellRendererComponent(JList<? extends PlayerScore> list, PlayerScore value, int index, boolean isSelected, boolean cellHasFocus) {
-                if(value != null){
-                    playerScoreView.setPlayerScore(value);
-                }
-                return playerScoreView;
-            }
-        });
-
-        JButton returnButton = new JButton("Return");
-
+        /*
+            Return button
+         */
+        returnButton = new JButton("Return");
         returnButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Main.getGameFrame().getCardLayout().show(Main.getGameFrame().getMainPane(), Frame.MAIN_MENU.name());
             }
         });
-
-        gridBagConstraints.ipadx = 100;
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-
-        add(jScrollPane, gridBagConstraints);
-
-        gridBagConstraints.insets = new Insets(25, 0, 0, 0);
-        gridBagConstraints.gridy = 1;
-
-        add(returnButton, gridBagConstraints);
-
     }
 
-    public void updateList(){
+    private void createLayout(){
+        setLayout(new GridBagLayout());
+
+        GridBagConstraints gridBagConstraints = new GridBagConstraints();
+
+        /*
+            Overall settings
+         */
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = GridBagConstraints.CENTER;
+        gridBagConstraints.ipadx = 100;
+
+        /*
+            Scrolling pane
+         */
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        add(jScrollPane, gridBagConstraints);
+
+        /*
+            Return button
+         */
+        gridBagConstraints.insets = new Insets(25, 0, 0, 0);
+        gridBagConstraints.gridy = 1;
+        add(returnButton, gridBagConstraints);
+    }
+
+    private void setUpCellRenderer() {
         playerScoreJList.setCellRenderer(new ListCellRenderer<PlayerScore>() {
 
             final PlayerScoreView playerScoreView = new PlayerScoreView();
@@ -79,6 +94,10 @@ public class LeaderboardPane extends JPanel {
                 return playerScoreView;
             }
         });
+    }
+
+    public void updateList(){
+        setUpCellRenderer();
     }
 
     @Override
@@ -95,5 +114,13 @@ public class LeaderboardPane extends JPanel {
 
     public LeaderboardModel getLeaderboardModel() {
         return leaderboardModel;
+    }
+
+    public JScrollPane getjScrollPane() {
+        return jScrollPane;
+    }
+
+    public JButton getReturnButton() {
+        return returnButton;
     }
 }

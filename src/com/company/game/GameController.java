@@ -1,28 +1,32 @@
 package com.company.game;
 
 import com.company.*;
-import com.company.duck.Duck;
+import com.company.actor.MovingActor;
+import com.company.actor.duck.Duck;
+import com.company.actor.obstacles.Cloud;
 
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.swing.*;
-import java.applet.AudioClip;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
 public class GameController {
 
-    private final ArrayList<Duck> spawnedDucks;
+    private final ArrayList<MovingActor> spawnedActors;
 
-    private final GameLoop gameLoop;
+    private GameLoop gameLoop;
 
     private Clip musicClip;
 
-    private int spawnRate;
+    /*private int spawnRate;
     private int tempRate;
-    private int decreaseRate;
+    private int decreaseRate;*/
+
+    private SpawnRate duckSpawnRate;
+    private SpawnRate obstacleSpawnRate;
 
     private int ammoUpgrade;
     private int damageUpgrade;
@@ -34,12 +38,15 @@ public class GameController {
     private int score;
     private boolean gameActive;
 
-    public GameController(){
-        spawnedDucks = new ArrayList<>();
+    public GameController() throws LineUnavailableException, IOException {
+        spawnedActors = new ArrayList<>();
         gameLoop = new GameLoop(this);
 
         ammoUpgrade = 0;
         damageUpgrade = 0;
+
+        musicClip = AudioSystem.getClip();
+        musicClip.open(Assets.peacefulDuckSong);
     }
 
     public void reset() throws LineUnavailableException, IOException {
@@ -48,32 +55,43 @@ public class GameController {
         score = 0;
         damage = Settings.baseDamage;
         ammo = Settings.baseAmmo;
-        musicClip = AudioSystem.getClip();
-        musicClip.open(Assets.peacefulDuckSong);
+        musicClip.setFramePosition(0);
+
+        SwingUtilities.invokeLater(() -> {
+            Iterator<MovingActor> iterator = spawnedActors.iterator();
+            while(iterator.hasNext()){
+                MovingActor actor = iterator.next();
+                Main.getGameFrame().getGamePane().getShootingPane().remove(actor);
+                iterator.remove();
+            }
+        });
     }
 
     public void setDifficulty(Difficulty difficulty){
         switch (difficulty){
             case EASY -> {
-                spawnRate = 200;
-                tempRate = 180;
-                decreaseRate = 2;
+                duckSpawnRate = new SpawnRate(200, 180, 2);
+                obstacleSpawnRate = new SpawnRate(200, 180, 0);
             }
             case NORMAL -> {
-                spawnRate = 150;
-                tempRate = 120;
-                decreaseRate = 3;
+                duckSpawnRate = new SpawnRate(150, 120, 3);
+                obstacleSpawnRate = new SpawnRate(150, 120, 0);
             }
             case DOOM -> {
-                spawnRate = 100;
-                tempRate = 90;
-                decreaseRate = 10;
+                duckSpawnRate = new SpawnRate(100, 90, 10);
+                obstacleSpawnRate = new SpawnRate(100, 90, 0);
             }
         }
     }
 
     public void end(){
-        setGameActive(false);
+        try {
+            setGameActive(false);
+        } catch (LineUnavailableException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         String nickname = JOptionPane.showInputDialog(Main.getGameFrame(), "Enter your nickname");
 
@@ -83,10 +101,15 @@ public class GameController {
     }
 
     public void spawnDuck(){
-        System.out.println("Spawning duck");
         Duck duck = Duck.spawnNewDuck();
-        spawnedDucks.add(duck);
+        spawnedActors.add(duck);
         Main.getGameFrame().getGamePane().getShootingPane().add(duck);
+    }
+
+    public void spawnCloud(){
+        Cloud cloud = Cloud.spawnCloud();
+        spawnedActors.add(cloud);
+        Main.getGameFrame().getGamePane().getObstaclePane().add(cloud);
     }
 
     public void setValuesOnScreen(){
@@ -147,19 +170,32 @@ public class GameController {
         return gameActive;
     }
 
-    public void setGameActive(boolean gameActive) {
+    public void setGameActive(boolean gameActive) throws LineUnavailableException, IOException {
         this.gameActive = gameActive;
         if(gameActive){
+            reset();
+
             if(gameLoop.isInterrupted() || !gameLoop.isAlive()){
-                gameLoop.start();
-                musicClip.start();
+                gameLoop = new GameLoop(this);
             }
+            gameLoop.start();
+
+            musicClip.start();
+            setValuesOnScreen();
+
+            if(Main.getGameTime().isInterrupted() || !Main.getGameTime().isAlive()){
+                Main.setGameTime(new GameTime());
+            }
+            Main.getGameTime().start();
         }
         else{
             if(!gameLoop.isInterrupted()){
                 gameLoop.interrupt();
-                musicClip.stop();
             }
+            if(!Main.getGameTime().isInterrupted()){
+                Main.getGameTime().interrupt();
+            }
+            musicClip.stop();
         }
     }
 
@@ -167,24 +203,8 @@ public class GameController {
         return gameLoop;
     }
 
-    public int getSpawnRate() {
-        return spawnRate;
-    }
-
-    public void setSpawnRate(int spawnRate) {
-        this.spawnRate = spawnRate;
-    }
-
-    public int getTempRate() {
-        return tempRate;
-    }
-
-    public void setTempRate(int tempRate) {
-        this.tempRate = tempRate;
-    }
-
-    public synchronized ArrayList<Duck> getSpawnedDucks() {
-        return spawnedDucks;
+    public synchronized ArrayList<MovingActor> getSpawnedActors() {
+        return spawnedActors;
     }
 
     public int getDamageUpgrade() {
@@ -203,11 +223,11 @@ public class GameController {
         this.ammoUpgrade = ammoUpgrade;
     }
 
-    public int getDecreaseRate() {
-        return decreaseRate;
+    public SpawnRate getDuckSpawnRate() {
+        return duckSpawnRate;
     }
 
-    public void setDecreaseRate(int decreaseRate) {
-        this.decreaseRate = decreaseRate;
+    public SpawnRate getObstacleSpawnRate() {
+        return obstacleSpawnRate;
     }
 }

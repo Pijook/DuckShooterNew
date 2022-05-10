@@ -1,4 +1,4 @@
-package com.company.duck;
+package com.company.actor.duck;
 
 public class Position {
 

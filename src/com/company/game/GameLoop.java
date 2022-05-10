@@ -1,9 +1,9 @@
 package com.company.game;
 
-import com.company.Controllers;
 import com.company.Main;
 import com.company.Settings;
-import com.company.duck.Duck;
+import com.company.actor.MovingActor;
+import com.company.actor.duck.Duck;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -22,51 +22,74 @@ public class GameLoop extends Thread {
     public void run() {
         super.run();
         while(!isInterrupted() && gameController.isGameActive()){
-            Iterator<Duck> iterator = gameController.getSpawnedDucks().iterator();
+            Iterator<MovingActor> iterator = gameController.getSpawnedActors().iterator();
 
-            List<Duck> toRemove = new ArrayList<>();
+            List<MovingActor> toRemove = new ArrayList<>();
 
             while(iterator.hasNext()){
-                Duck duck = iterator.next();
+                MovingActor actor = iterator.next();
 
-                if(!duck.isAlive()){
-                    toRemove.add(duck);
+                actor.act();
+
+                if(!actor.isAlive()){
+                    toRemove.add(actor);
                     iterator.remove();
                     continue;
                 }
 
-                duck.act();
-
-                if(duck.isLeft()){
-                    if(duck.getPosition().getX() < -150){
-                        gameController.setLives(gameController.getLives() - 1);
-                        duck.setAlive(false);
+                if(actor.isLeft()){
+                    if(actor.getPosition().getX() < -actor.getImageIcon().getIconWidth()){
+                        //gameController.setLives(gameController.getLives() - 1);
+                        actor.setAlive(false);
                     }
                 }
                 else{
-                    if(duck.getPosition().getX() > Settings.width){
-                        gameController.setLives(gameController.getLives() - 1);
-                        duck.setAlive(false);
+                    if(actor.getPosition().getX() > Settings.width){
+                        actor.setAlive(false);
+                    }
+                }
+
+                if(!actor.isAlive()){
+                    if(actor instanceof Duck duck){
+                        gameController.setLives(gameController.getLives() - duck.getDamage());
                     }
                 }
             }
 
-            for(Duck duck : toRemove){
+            for(MovingActor movingActor : toRemove){
                 SwingUtilities.invokeLater(() -> {
-                    Main.getGameFrame().getGamePane().getShootingPane().remove(duck);
+                    if(movingActor instanceof Duck){
+                        Main.getGameFrame().getGamePane().getShootingPane().remove(movingActor);
+                    }
+                    else{
+                        Main.getGameFrame().getGamePane().getObstaclePane().remove(movingActor);
+                    }
                 });
             }
 
             SwingUtilities.invokeLater(() -> {
                 Main.getGameFrame().getGamePane().getShootingPane().updateUI();
+                Main.getGameFrame().getGamePane().getObstaclePane().updateUI();
             });
 
-            if(gameController.getTempRate() >= gameController.getSpawnRate()){
+            /*if(gameController.getTempRate() >= gameController.getSpawnRate()){
                 gameController.spawnDuck();
                 gameController.setTempRate(0);
+            }*/
+
+            if(gameController.getDuckSpawnRate().readyToSpawn()){
+                gameController.spawnDuck();
+                gameController.getDuckSpawnRate().resetSpawnRate();
             }
 
-            gameController.setTempRate(gameController.getTempRate() + 1);
+            if(gameController.getObstacleSpawnRate().readyToSpawn()){
+                gameController.spawnCloud();
+                gameController.getObstacleSpawnRate().resetSpawnRate();
+            }
+
+            //gameController.setTempRate(gameController.getTempRate() + 1);
+            gameController.getDuckSpawnRate().setTempRate(gameController.getDuckSpawnRate().getTempRate() + 1);
+            gameController.getObstacleSpawnRate().setTempRate(gameController.getObstacleSpawnRate().getTempRate() + 1);
 
             //System.out.println(gameController.getTempRate());
 

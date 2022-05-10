@@ -12,7 +12,7 @@ public class CustomCardLayout extends CardLayout {
         this.currentFrame = currentFrame;
     }
 
-    @Override
+    /*@Override
     public void show(Container parent, String name) {
         if(currentFrame.equals(Frame.GAME)){
             System.out.println("Interupting");
@@ -29,6 +29,21 @@ public class CustomCardLayout extends CardLayout {
             Controllers.getGameController().setGameActive(true);
             Controllers.getGameController().setValuesOnScreen();
             Main.getGameTime().start();
+        }
+        currentFrame = Frame.valueOf(name);
+        super.show(parent, name);
+    }*/
+
+    @Override
+    public void show(Container parent, String name) {
+        if(name.equalsIgnoreCase(Frame.GAME.name())){
+            try {
+                Controllers.getGameController().setGameActive(true);
+            } catch (LineUnavailableException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         currentFrame = Frame.valueOf(name);
         super.show(parent, name);

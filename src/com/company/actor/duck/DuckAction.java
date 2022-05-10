@@ -1,8 +1,6 @@
-package com.company.duck;
+package com.company.actor.duck;
 
 import com.company.Controllers;
-import com.company.Main;
-import com.company.Settings;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,7 +20,6 @@ public class DuckAction implements ActionListener {
         }
 
         int damage = Controllers.getGameController().getDamage() + Controllers.getGameController().getDamageUpgrade();
-        System.out.println(damage);
         duck.setLives(duck.getLives() - damage);
 
         Controllers.getGameController().setAmmo(Controllers.getGameController().getAmmo() - 1);

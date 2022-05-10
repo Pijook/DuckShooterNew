@@ -11,23 +11,20 @@ import java.awt.event.ActionEvent;
 
 public class DifficultyPane extends JPanel {
 
+    private JButton easyModeButton;
+    private JButton normalModeButton;
+    private JButton doomModeButton;
+
     public DifficultyPane(){
-        setLayout(new GridBagLayout());
+        createElements();
+        createLayout();
+    }
 
-        GridBagConstraints gridBagConstraints = new GridBagConstraints();
-
-        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = GridBagConstraints.CENTER;
-
-        gridBagConstraints.ipadx = 200;
-        gridBagConstraints.ipady = 50;
-
-        gridBagConstraints.insets = new Insets(20,0,0,0);
-
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-
-        JButton easyModeButton = new JButton("Easy");
+    private void createElements(){
+        /*
+            Easy button
+         */
+        easyModeButton = new JButton("Easy");
         easyModeButton.setFont(Assets.rainyHeartsFont.deriveFont(36f));
 
         easyModeButton.addActionListener(new AbstractAction() {
@@ -38,10 +35,10 @@ public class DifficultyPane extends JPanel {
             }
         });
 
-        add(easyModeButton, gridBagConstraints);
-
-        gridBagConstraints.gridy = 1;
-        JButton normalModeButton = new JButton("Normal");
+        /*
+            Normal button
+         */
+        normalModeButton = new JButton("Normal");
         normalModeButton.setFont(Assets.rainyHeartsFont.deriveFont(36f));
 
         normalModeButton.addActionListener(new AbstractAction() {
@@ -52,10 +49,10 @@ public class DifficultyPane extends JPanel {
             }
         });
 
-        add(normalModeButton, gridBagConstraints);
-
-        gridBagConstraints.gridy = 2;
-        JButton doomModeButton = new JButton("DOOM");
+        /*
+            Doom button
+         */
+        doomModeButton = new JButton("DOOM");
         doomModeButton.setFont(Assets.rainyHeartsFont.deriveFont(36f).deriveFont(Font.BOLD));
         doomModeButton.setForeground(Color.RED);
 
@@ -66,8 +63,40 @@ public class DifficultyPane extends JPanel {
                 Main.getGameFrame().getCardLayout().show(Main.getGameFrame().getMainPane(), Frame.GAME.name());
             }
         });
+    }
 
-        add(doomModeButton, gridBagConstraints);
+    private void createLayout(){
+        setLayout(new GridBagLayout());
+
+        GridBagConstraints gridBagConstraints = new GridBagConstraints();
+
+        /*
+            Overall settings
+         */
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = GridBagConstraints.CENTER;
+        gridBagConstraints.ipadx = 200;
+        gridBagConstraints.ipady = 50;
+        gridBagConstraints.insets = new Insets(20,0,0,0);
+
+        /*
+            Easy button
+         */
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        add(easyModeButton,gridBagConstraints);
+
+        /*
+            Normal button
+         */
+        gridBagConstraints.gridy = 1;
+        add(normalModeButton,gridBagConstraints);
+
+        /*
+            Doom button
+         */
+        gridBagConstraints.gridy = 2;
+        add(doomModeButton,gridBagConstraints);
     }
 
     @Override
