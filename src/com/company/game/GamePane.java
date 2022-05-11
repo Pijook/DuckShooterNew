@@ -147,8 +147,6 @@ public class GamePane extends JPanel {
         gridBagConstraints.gridx = 2;
         add(scoreLabel, gridBagConstraints);
 
-
-
         /*
             Obstacle pane
          */

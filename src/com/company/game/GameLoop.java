@@ -39,7 +39,6 @@ public class GameLoop extends Thread {
 
                 if(actor.isLeft()){
                     if(actor.getPosition().getX() < -actor.getImageIcon().getIconWidth()){
-                        //gameController.setLives(gameController.getLives() - 1);
                         actor.setAlive(false);
                     }
                 }
@@ -72,11 +71,6 @@ public class GameLoop extends Thread {
                 Main.getGameFrame().getGamePane().getObstaclePane().updateUI();
             });
 
-            /*if(gameController.getTempRate() >= gameController.getSpawnRate()){
-                gameController.spawnDuck();
-                gameController.setTempRate(0);
-            }*/
-
             if(gameController.getDuckSpawnRate().readyToSpawn()){
                 gameController.spawnDuck();
                 gameController.getDuckSpawnRate().resetSpawnRate();
@@ -87,11 +81,8 @@ public class GameLoop extends Thread {
                 gameController.getObstacleSpawnRate().resetSpawnRate();
             }
 
-            //gameController.setTempRate(gameController.getTempRate() + 1);
             gameController.getDuckSpawnRate().setTempRate(gameController.getDuckSpawnRate().getTempRate() + 1);
             gameController.getObstacleSpawnRate().setTempRate(gameController.getObstacleSpawnRate().getTempRate() + 1);
-
-            //System.out.println(gameController.getTempRate());
 
             try {
                 sleep(1000 / Settings.fps);

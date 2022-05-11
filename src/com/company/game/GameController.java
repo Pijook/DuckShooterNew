@@ -4,6 +4,7 @@ import com.company.*;
 import com.company.actor.MovingActor;
 import com.company.actor.duck.Duck;
 import com.company.actor.obstacles.Cloud;
+import com.company.game.difficulty.Difficulty;
 
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -49,7 +50,7 @@ public class GameController {
         musicClip.open(Assets.peacefulDuckSong);
     }
 
-    public void reset() throws LineUnavailableException, IOException {
+    public void reset() {
         time = 0;
         lives = Settings.lives;
         score = 0;
@@ -87,13 +88,15 @@ public class GameController {
     public void end(){
         try {
             setGameActive(false);
-        } catch (LineUnavailableException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (LineUnavailableException | IOException e) {
             e.printStackTrace();
         }
 
-        String nickname = JOptionPane.showInputDialog(Main.getGameFrame(), "Enter your nickname");
+        String nickname = null;
+
+        while(nickname == null || nickname.length() == 0 || nickname.length() > 32) {
+            nickname = JOptionPane.showInputDialog(Main.getGameFrame(), "Enter your nickname");
+        }
 
         Controllers.getLeaderboardController().add(nickname, score, ammoUpgrade, damageUpgrade, time);
 

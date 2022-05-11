@@ -1,4 +1,4 @@
-package com.company.game;
+package com.company.game.difficulty;
 
 import com.company.Assets;
 import com.company.Controllers;
@@ -24,8 +24,8 @@ public class DifficultyPane extends JPanel {
         /*
             Easy button
          */
-        easyModeButton = new JButton("Easy");
-        easyModeButton.setFont(Assets.rainyHeartsFont.deriveFont(36f));
+        easyModeButton = new DifficultyButton("Easy");
+        //easyModeButton.setFont(Assets.rainyHeartsFont.deriveFont(36f));
 
         easyModeButton.addActionListener(new AbstractAction() {
             @Override
@@ -38,8 +38,8 @@ public class DifficultyPane extends JPanel {
         /*
             Normal button
          */
-        normalModeButton = new JButton("Normal");
-        normalModeButton.setFont(Assets.rainyHeartsFont.deriveFont(36f));
+        normalModeButton = new DifficultyButton("Normal");
+        //normalModeButton.setFont(Assets.rainyHeartsFont.deriveFont(36f));
 
         normalModeButton.addActionListener(new AbstractAction() {
             @Override
@@ -52,8 +52,8 @@ public class DifficultyPane extends JPanel {
         /*
             Doom button
          */
-        doomModeButton = new JButton("DOOM");
-        doomModeButton.setFont(Assets.rainyHeartsFont.deriveFont(36f).deriveFont(Font.BOLD));
+        doomModeButton = new DifficultyButton("DOOM");
+        //doomModeButton.setFont(Assets.rainyHeartsFont.deriveFont(36f).deriveFont(Font.BOLD));
         doomModeButton.setForeground(Color.RED);
 
         doomModeButton.addActionListener(new AbstractAction() {
@@ -77,7 +77,7 @@ public class DifficultyPane extends JPanel {
         gridBagConstraints.anchor = GridBagConstraints.CENTER;
         gridBagConstraints.ipadx = 200;
         gridBagConstraints.ipady = 50;
-        gridBagConstraints.insets = new Insets(20,0,0,0);
+        gridBagConstraints.insets = new Insets(5,0,0,0);
 
         /*
             Easy button

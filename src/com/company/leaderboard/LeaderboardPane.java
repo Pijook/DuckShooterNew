@@ -40,12 +40,17 @@ public class LeaderboardPane extends JPanel {
             Scrolling pane
          */
         jScrollPane = new JScrollPane(playerScoreJList);
-        jScrollPane.setOpaque(false);
 
         /*
             Return button
          */
-        returnButton = new JButton("Return");
+        returnButton = new JButton();
+        returnButton.setText("Return");
+        returnButton.setFont(Assets.rainyHeartsFont.deriveFont(36f));
+        returnButton.setIcon(Assets.greenButtonImage);
+        returnButton.setHorizontalTextPosition(SwingUtilities.HORIZONTAL);
+        returnButton.setContentAreaFilled(false);
+        setBorder(BorderFactory.createEmptyBorder());
         returnButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

@@ -1,13 +1,11 @@
 package com.company;
 
-import com.company.game.DifficultyPane;
+import com.company.game.difficulty.DifficultyPane;
 import com.company.game.GamePane;
 import com.company.leaderboard.LeaderboardPane;
+import com.company.menu.MainMenuPane;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 public class GameFrame extends JFrame {
 
@@ -22,7 +20,7 @@ public class GameFrame extends JFrame {
     private DifficultyPane difficultyPane;
 
     public GameFrame(){
-        //*setIconImage(Assets.animatedDuckSmallImage.getImage());
+        setIconImage(Assets.programIcon.getImage());
         setVisible(true);
         setResizable(false);
         setTitle(Settings.title);

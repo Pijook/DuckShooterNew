@@ -58,12 +58,7 @@ public class LeaderboardController {
             }
         });
 
-        for(PlayerScore playerScore : playerScores){
-            System.out.println(playerScore);
-        }
-
         Main.getGameFrame().getLeaderboardPane().updateList();
-        //Main.getGameFrame().getLeaderboardPane().getLeaderboardModel().setPlayerScores(playerScores);
     }
 
     public List<PlayerScore> getPlayerScores() {

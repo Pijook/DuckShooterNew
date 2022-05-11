@@ -1,4 +1,8 @@
-package com.company;
+package com.company.menu;
+
+import com.company.Assets;
+import com.company.Frame;
+import com.company.Main;
 
 import javax.swing.*;
 import java.awt.*;
@@ -29,18 +33,19 @@ public class MainMenuPane extends JPanel {
         /*
             Start button
          */
-        startButton = new JButton("Start");
+        startButton = new MenuButton("Start");
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Main.getGameFrame().getCardLayout().show(Main.getGameFrame().getMainPane(), Frame.DIFFICULTY.name());
+                System.out.println(startButton.getWidth() + " " + startButton.getHeight());
+                Main.getGameFrame().getCardLayout().show(Main.getGameFrame().getMainPane(), com.company.Frame.DIFFICULTY.name());
             }
         });
 
         /*
             Exit button
          */
-        exitButton = new JButton("Exit");
+        exitButton = new MenuButton("Exit");
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -53,7 +58,7 @@ public class MainMenuPane extends JPanel {
         /*
             Leaderboard button
          */
-        leaderBoardButton = new JButton("Leaderboard");
+        leaderBoardButton = new MenuButton("Leaderboard");
         leaderBoardButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -82,8 +87,9 @@ public class MainMenuPane extends JPanel {
         /*
             Start button
          */
-        gridBagConstraints.insets = new Insets(35,0,0,0);
+        gridBagConstraints.insets = new Insets(5,0,0,0);
         gridBagConstraints.ipady = 35;
+        //gridBagConstraints.ipadx = startButton.getIcon().getIconWidth();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         add(startButton, gridBagConstraints);

@@ -1,4 +1,4 @@
-package com.company.game;
+package com.company.game.difficulty;
 
 public enum Difficulty {
 
