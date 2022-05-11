@@ -1,10 +1,11 @@
 package com.company.actor.duck;
 
+import javax.swing.*;
+
 public class HardDuck extends Duck {
 
-    public HardDuck(Position position, boolean left) {
-        super(3, 500, 5,5, position, left);
-        setText("Hard Duck");
+    public HardDuck(Position position, boolean left, ImageIcon imageIcon) {
+        super(3, 500, 5,5, position, left, imageIcon);
     }
 
 }

@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 
 public class DifficultyPane extends JPanel {
 
+    private JLabel titleLabel;
     private JButton easyModeButton;
     private JButton normalModeButton;
     private JButton doomModeButton;
@@ -21,6 +22,13 @@ public class DifficultyPane extends JPanel {
     }
 
     private void createElements(){
+
+        /*
+            Title label
+         */
+        titleLabel = new JLabel("Choose difficulty!");
+        titleLabel.setFont(Assets.rainyHeartsFont.deriveFont(72f));
+
         /*
             Easy button
          */
@@ -75,27 +83,32 @@ public class DifficultyPane extends JPanel {
          */
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = GridBagConstraints.CENTER;
-        gridBagConstraints.ipadx = 200;
-        gridBagConstraints.ipady = 50;
-        gridBagConstraints.insets = new Insets(5,0,0,0);
+        //gridBagConstraints.ipadx = 200;
+        //gridBagConstraints.ipady = 50;
+
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        add(titleLabel, gridBagConstraints);
 
         /*
             Easy button
          */
+        gridBagConstraints.insets = new Insets(5,0,0,0);
+        gridBagConstraints.ipady = 35;
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridy = 1;
         add(easyModeButton,gridBagConstraints);
 
         /*
             Normal button
          */
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 2;
         add(normalModeButton,gridBagConstraints);
 
         /*
             Doom button
          */
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 3;
         add(doomModeButton,gridBagConstraints);
     }
 

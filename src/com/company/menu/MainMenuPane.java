@@ -37,7 +37,6 @@ public class MainMenuPane extends JPanel {
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println(startButton.getWidth() + " " + startButton.getHeight());
                 Main.getGameFrame().getCardLayout().show(Main.getGameFrame().getMainPane(), com.company.Frame.DIFFICULTY.name());
             }
         });
@@ -51,7 +50,6 @@ public class MainMenuPane extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 Main.save();
                 System.exit(0);
-                //Main.getGameFrame().dispose();
             }
         });
 
@@ -89,7 +87,6 @@ public class MainMenuPane extends JPanel {
          */
         gridBagConstraints.insets = new Insets(5,0,0,0);
         gridBagConstraints.ipady = 35;
-        //gridBagConstraints.ipadx = startButton.getIcon().getIconWidth();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         add(startButton, gridBagConstraints);

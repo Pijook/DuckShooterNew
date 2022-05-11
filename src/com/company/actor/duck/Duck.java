@@ -34,15 +34,23 @@ public abstract class Duck extends MovingActor {
             );
         }
 
-        Duck duck;
-        if(chance <= 5){
-            duck = new HardDuck(position, isLeft);
-        }
-        else if(chance <= 35){
-            duck = new MediumDuck(position, isLeft);
+        ImageIcon imageIcon;
+        if(isLeft){
+            imageIcon = Assets.animatedDuckLeft;
         }
         else{
-            duck = new EasyDuck(position, isLeft);
+            imageIcon = Assets.animatedDuckRight;
+        }
+
+        Duck duck;
+        if(chance <= 5){
+            duck = new HardDuck(position, isLeft, imageIcon);
+        }
+        else if(chance <= 35){
+            duck = new MediumDuck(position, isLeft, imageIcon);
+        }
+        else{
+            duck = new EasyDuck(position, isLeft, imageIcon);
         }
 
         //duck.setLeft(isLeft);
@@ -54,8 +62,8 @@ public abstract class Duck extends MovingActor {
     private final int damage;
     private boolean alive;
 
-    public Duck(int lives, int score, int damage, int speed, Position position, boolean left) {
-        super(Assets.animatedDuckBigImage, position, left, speed);
+    public Duck(int lives, int score, int damage, int speed, Position position, boolean left, ImageIcon imageIcon) {
+        super(imageIcon, position, left, speed);
         this.lives = lives;
         this.score = score;
         this.damage = damage;
@@ -64,12 +72,6 @@ public abstract class Duck extends MovingActor {
         setContentAreaFilled(false);
         addActionListener(new DuckAction(this));
     }
-
-    /*@Override
-    public void act(){
-
-        //setBounds(position.getX(), position.getY(), 100, 150);
-    }*/
 
     public void setLives(int lives) {
         this.lives = lives;

@@ -6,9 +6,13 @@ import com.company.Frame;
 import com.company.Main;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class LeaderboardPane extends JPanel {
 
@@ -31,9 +35,28 @@ public class LeaderboardPane extends JPanel {
         /*
             PlayerScore list
          */
+
         playerScoreJList = new JList<>();
         playerScoreJList.setModel(leaderboardModel);
         playerScoreJList.setOpaque(false);
+        playerScoreJList.setBackground(new Color(0,0,0,0));
+        playerScoreJList.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                PlayerScore playerScore = playerScoreJList.getModel().getElementAt(playerScoreJList.locationToIndex(e.getPoint()));
+
+                JLabel jLabel = new JLabel("<html>Nickname: " + playerScore.nickname() +
+                        "<br>Score: " + playerScore.score() +
+                        "<br>Time: " + playerScore.time() +
+                        "<br>Ammo upgrade: " + playerScore.reloadUpgrade() +
+                        "<br>Damage upgrade: " + playerScore.damageUpgrade() +
+                        "</html>");
+
+                jLabel.setFont(Assets.rainyHeartsFont);
+
+                JOptionPane.showMessageDialog(null, jLabel);
+            }
+        });
         setUpCellRenderer();
 
         /*
@@ -50,7 +73,7 @@ public class LeaderboardPane extends JPanel {
         returnButton.setIcon(Assets.greenButtonImage);
         returnButton.setHorizontalTextPosition(SwingUtilities.HORIZONTAL);
         returnButton.setContentAreaFilled(false);
-        setBorder(BorderFactory.createEmptyBorder());
+        returnButton.setBorder(BorderFactory.createEmptyBorder());
         returnButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

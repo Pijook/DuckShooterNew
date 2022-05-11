@@ -17,7 +17,8 @@ public class Assets {
      */
     public static ImageIcon programIcon;
 
-    public static ImageIcon animatedDuckBigImage;
+    public static ImageIcon animatedDuckLeft;
+    public static ImageIcon animatedDuckRight;
     public static ImageIcon backgroundImage;
 
     public static ImageIcon blueButtonImage;
@@ -31,6 +32,7 @@ public class Assets {
         Music
      */
     public static AudioInputStream peacefulDuckSong;
+    public static AudioInputStream quackSound;
 
     /*
         Fonts
@@ -51,6 +53,8 @@ public class Assets {
     private static void loadTextures() {
         programIcon = new ImageIcon("resources/textures/icon.png");
 
+        animatedDuckLeft = new ImageIcon("resources/textures/duckLeft.gif");
+        animatedDuckRight = new ImageIcon("resources/textures/duckRight.gif");
         backgroundImage = new ImageIcon("resources/textures/backgroundBig.png");
 
         blueButtonImage = new ImageIcon("resources/textures/ui/blueButtonBig.png");
@@ -66,6 +70,7 @@ public class Assets {
 
     private static void loadSounds() throws UnsupportedAudioFileException, IOException {
         peacefulDuckSong = AudioSystem.getAudioInputStream(new File("resources/music/peacefulduckmusic.wav"));
+        quackSound = AudioSystem.getAudioInputStream(new File("resources/music/quackSound.wav"));
 
         //TODO Add quacking in the 90's as music
     }

@@ -1,9 +1,10 @@
 package com.company.actor.duck;
 
+import javax.swing.*;
+
 public class MediumDuck extends Duck{
 
-    public MediumDuck(Position position, boolean left) {
-        super(2, 250, 2, 10, position, left);
-        setText("Medium Duck");
+    public MediumDuck(Position position, boolean left, ImageIcon imageIcon) {
+        super(2, 250, 2, 10, position, left, imageIcon);
     }
 }

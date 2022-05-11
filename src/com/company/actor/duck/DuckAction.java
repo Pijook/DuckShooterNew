@@ -1,9 +1,12 @@
 package com.company.actor.duck;
 
+import com.company.Assets;
 import com.company.Controllers;
 
+import javax.sound.sampled.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class DuckAction implements ActionListener {
 
@@ -28,5 +31,6 @@ public class DuckAction implements ActionListener {
             duck.setAlive(false);
             Controllers.getGameController().setScore(Controllers.getGameController().getScore() + duck.getScore());
         }
+
     }
 }
