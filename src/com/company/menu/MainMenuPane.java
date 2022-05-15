@@ -16,6 +16,8 @@ public class MainMenuPane extends JPanel {
     private JButton leaderBoardButton;
     private JButton exitButton;
 
+    private JPanel actorsPane;
+
     private JLabel titleLabel;
 
     public MainMenuPane(){
@@ -63,6 +65,14 @@ public class MainMenuPane extends JPanel {
                 Main.getGameFrame().getCardLayout().show(Main.getGameFrame().getMainPane(), Frame.LEADERBOARD.name());
             }
         });
+
+        /*
+            Actors pane
+         */
+        actorsPane = new JPanel();
+        actorsPane.setBorder(BorderFactory.createLineBorder(Color.RED));
+
+
     }
 
     private void createLayout(){
@@ -102,6 +112,7 @@ public class MainMenuPane extends JPanel {
          */
         gridBagConstraints.gridy = 3;
         add(exitButton, gridBagConstraints);
+
     }
 
     @Override
@@ -110,5 +121,9 @@ public class MainMenuPane extends JPanel {
 
         Image image = Assets.backgroundImage.getImage();
         g.drawImage(image, 0,0,this);
+    }
+
+    public JPanel getActorsPane() {
+        return actorsPane;
     }
 }

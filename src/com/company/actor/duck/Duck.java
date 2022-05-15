@@ -53,7 +53,6 @@ public abstract class Duck extends MovingActor {
             duck = new EasyDuck(position, isLeft, imageIcon);
         }
 
-        //duck.setLeft(isLeft);
         return duck;
     }
 
@@ -68,6 +67,7 @@ public abstract class Duck extends MovingActor {
         this.score = score;
         this.damage = damage;
         this.alive = true;
+
         setBorder(BorderFactory.createEmptyBorder());
         setContentAreaFilled(false);
         addActionListener(new DuckAction(this));
