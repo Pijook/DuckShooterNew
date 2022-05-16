@@ -6,7 +6,7 @@ import javax.swing.*;
 import javax.swing.event.ListDataListener;
 import java.util.List;
 
-public class LeaderboardModel implements ListModel<PlayerScore> {
+public class LeaderboardModel extends AbstractListModel<PlayerScore> {
 
     private List<PlayerScore> playerScores;
 

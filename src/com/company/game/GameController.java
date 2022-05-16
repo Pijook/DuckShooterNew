@@ -22,10 +22,6 @@ public class GameController {
 
     private Clip musicClip;
 
-    /*private int spawnRate;
-    private int tempRate;
-    private int decreaseRate;*/
-
     private SpawnRate duckSpawnRate;
     private SpawnRate obstacleSpawnRate;
 
@@ -62,9 +58,17 @@ public class GameController {
             Iterator<MovingActor> iterator = spawnedActors.iterator();
             while(iterator.hasNext()){
                 MovingActor actor = iterator.next();
-                Main.getGameFrame().getGamePane().getShootingPane().remove(actor);
+                if(actor instanceof Duck){
+                    Main.getGameFrame().getGamePane().getShootingPane().remove(actor);
+                }
+                else{
+                    Main.getGameFrame().getGamePane().getObstaclePane().remove(actor);
+                }
                 iterator.remove();
             }
+
+            Main.getGameFrame().getGamePane().getShootingPane().updateUI();
+            Main.getGameFrame().getGamePane().getObstaclePane().updateUI();
         });
     }
 

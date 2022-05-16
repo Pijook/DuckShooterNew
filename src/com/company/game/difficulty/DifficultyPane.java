@@ -47,7 +47,6 @@ public class DifficultyPane extends JPanel {
             Normal button
          */
         normalModeButton = new DifficultyButton("Normal");
-        //normalModeButton.setFont(Assets.rainyHeartsFont.deriveFont(36f));
 
         normalModeButton.addActionListener(new AbstractAction() {
             @Override
@@ -61,7 +60,6 @@ public class DifficultyPane extends JPanel {
             Doom button
          */
         doomModeButton = new DifficultyButton("DOOM");
-        //doomModeButton.setFont(Assets.rainyHeartsFont.deriveFont(36f).deriveFont(Font.BOLD));
         doomModeButton.setForeground(Color.RED);
 
         doomModeButton.addActionListener(new AbstractAction() {
@@ -83,8 +81,6 @@ public class DifficultyPane extends JPanel {
          */
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = GridBagConstraints.CENTER;
-        //gridBagConstraints.ipadx = 200;
-        //gridBagConstraints.ipady = 50;
 
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -116,7 +112,7 @@ public class DifficultyPane extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        Image image = Assets.backgroundImage.getImage();//.getScaledInstance(1280, 720,Image.SCALE_DEFAULT);
+        Image image = Assets.backgroundImage.getImage();
         g.drawImage(image, 0,0,this);
     }
 

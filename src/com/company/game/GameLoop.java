@@ -87,7 +87,6 @@ public class GameLoop extends Thread {
             try {
                 sleep(1000 / Settings.fps);
             } catch (InterruptedException e) {
-                e.printStackTrace();
                 break;
             }
         }
