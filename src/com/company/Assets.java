@@ -70,7 +70,7 @@ public class Assets {
 
     private static void loadSounds() throws UnsupportedAudioFileException, IOException {
         peacefulDuckSong = AudioSystem.getAudioInputStream(new File("resources/music/peacefulduckmusic.wav"));
-        quackSound = AudioSystem.getAudioInputStream(new File("resources/music/quackSound.wav"));
+        //quackSound = AudioSystem.getAudioInputStream(new File("resources/music/quackSound.wav"));
 
         //TODO Add quacking in the 90's as music
     }
