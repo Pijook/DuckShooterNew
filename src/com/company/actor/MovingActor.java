@@ -18,7 +18,7 @@ public abstract class MovingActor extends JButton {
         this.position = position;
         this.left = left;
         this.speed = speed;
-        alive = true;
+        this.alive = true;
     }
 
     public void act(){

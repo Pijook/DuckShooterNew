@@ -42,8 +42,11 @@ public class GameFrame extends JFrame {
         mainPane.getActionMap().put("closeHotkey", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Main.save();
-                System.exit(0);
+                if(Controllers.getGameController().isGameActive()){
+                    Controllers.getGameController().end();
+                }
+                //Main.save();
+               // System.exit(0);
             }
         });
 
