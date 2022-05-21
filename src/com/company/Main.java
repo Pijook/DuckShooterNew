@@ -50,7 +50,7 @@ public class Main {
         try {
             Controllers.getLeaderboardController().save();
         } catch (IOException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error while loading", JOptionPane.ERROR_MESSAGE);
         }
 
     }

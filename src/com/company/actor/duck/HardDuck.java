@@ -1,5 +1,7 @@
 package com.company.actor.duck;
 
+import com.company.actor.Position;
+
 import javax.swing.*;
 
 public class HardDuck extends Duck {

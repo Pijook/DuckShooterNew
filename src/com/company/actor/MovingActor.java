@@ -1,7 +1,5 @@
 package com.company.actor;
 
-import com.company.actor.duck.Position;
-
 import javax.swing.*;
 
 public abstract class MovingActor extends JButton {

@@ -4,6 +4,7 @@ import com.company.Main;
 import com.company.Settings;
 import com.company.Assets;
 import com.company.actor.MovingActor;
+import com.company.actor.Position;
 
 import javax.swing.*;
 import java.util.Random;
