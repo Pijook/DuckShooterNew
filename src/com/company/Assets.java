@@ -27,6 +27,7 @@ public class Assets {
     public static ImageIcon yellowButtonImage;
 
     public static ImageIcon[] clouds;
+    public static ImageIcon[] trees;
 
     /*
         Music
@@ -65,6 +66,12 @@ public class Assets {
         clouds = new ImageIcon[8];
         for(int i = 1; i <= 8; i++){
             clouds[i - 1] = new ImageIcon("resources/textures/obstacles/cloudBig" + i + ".png");
+        }
+
+        trees = new ImageIcon[2];
+        for(int i = 1; i <= 2; i++){
+            trees[i - 1] = new ImageIcon("resources/textures/obstacles/tree" + i + ".png");
+            System.out.println(trees[i - 1].getIconWidth());
         }
     }
 

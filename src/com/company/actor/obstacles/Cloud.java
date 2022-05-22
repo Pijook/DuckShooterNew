@@ -16,8 +16,8 @@ public class Cloud extends MovingActor {
 
         ImageIcon texture = Assets.clouds[random.nextInt(Assets.clouds.length)];
 
-        int bound = Main.getGameFrame().getGamePane().getShootingPane().getHeight();
-        int difference = Main.getGameFrame().getGamePane().getHeight() - Main.getGameFrame().getGamePane().getShootingPane().getHeight();
+        int bound = Main.getGameFrame().getGamePane().getShootingLayers().get("cloudLayer").getHeight();
+        int difference = Main.getGameFrame().getGamePane().getHeight() - bound;
         difference = difference/2;
 
         boolean isLeft = random.nextBoolean();
@@ -43,9 +43,9 @@ public class Cloud extends MovingActor {
 
     public Cloud(ImageIcon imageIcon, Position position, boolean left, int speed) {
         super(imageIcon, position, left, speed);
-        setBorder(BorderFactory.createEmptyBorder());
-        setContentAreaFilled(false);
-        setEnabled(false);
+        setLayer("cloudLayer");
     }
+
+
 
 }

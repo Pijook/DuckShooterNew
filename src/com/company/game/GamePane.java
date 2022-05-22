@@ -8,6 +8,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 
 public class GamePane extends JPanel {
 
@@ -17,8 +19,10 @@ public class GamePane extends JPanel {
     private JLabel livesLabel;
     private JLabel scoreLabel;
 
-    private JPanel shootingPane;
-    private JPanel obstaclePane;
+    /*private JPanel shootingPane;
+    private JPanel obstaclePane;*/
+    //private LinkedList<JPanel> shootingLayers;
+    private LinkedHashMap<String, JPanel> shootingLayers;
 
     private JButton ammoButton;
     private JButton upgradeAmmoButton;
@@ -26,6 +30,8 @@ public class GamePane extends JPanel {
 
     public GamePane(){
         gameController = Controllers.getGameController();
+
+        shootingLayers = new LinkedHashMap<>();
 
         createElements();
         createLayout();
@@ -57,18 +63,19 @@ public class GamePane extends JPanel {
         scoreLabel.setOpaque(false);
 
         /*
-            Shooting pane
+            Cloud pane
          */
-        shootingPane = new JPanel();
-        shootingPane.setLayout(null);
-        shootingPane.setOpaque(false);
+        addLayer("cloudLayer");
 
         /*
             Obstacle pane
          */
-        obstaclePane = new JPanel();
-        obstaclePane.setLayout(null);
-        obstaclePane.setOpaque(false);
+        addLayer("obstacleLayer");
+
+        /*
+            Shooting pane
+         */
+        addLayer("duckLayer");
 
         /*
             Ammo button
@@ -115,6 +122,14 @@ public class GamePane extends JPanel {
         });
     }
 
+    public void addLayer(String name){
+        JPanel layer;
+        layer = new JPanel();
+        layer.setLayout(null);
+        layer.setOpaque(false);
+        shootingLayers.put(name, layer);
+    }
+
     private void createLayout(){
         setLayout(new GridBagLayout());
 
@@ -148,22 +163,15 @@ public class GamePane extends JPanel {
         add(scoreLabel, gridBagConstraints);
 
         /*
-            Obstacle pane
+            Shooting layers
          */
         gridBagConstraints.gridy = 1;
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.ipady = 600;
-        add(obstaclePane, gridBagConstraints);
-
-        /*
-            Shooting pane
-         */
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.ipady = 600;
-        add(shootingPane, gridBagConstraints);
+        for(String key : shootingLayers.keySet()){
+            add(shootingLayers.get(key), gridBagConstraints);
+        }
 
         /*
             Upgrade ammo button
@@ -207,10 +215,6 @@ public class GamePane extends JPanel {
         return scoreLabel;
     }
 
-    public JPanel getShootingPane() {
-        return shootingPane;
-    }
-
     public JButton getUpgradeAmmoButton() {
         return upgradeAmmoButton;
     }
@@ -223,7 +227,7 @@ public class GamePane extends JPanel {
         return ammoButton;
     }
 
-    public JPanel getObstaclePane() {
-        return obstaclePane;
+    public LinkedHashMap<String, JPanel> getShootingLayers() {
+        return shootingLayers;
     }
 }

@@ -2,8 +2,10 @@ package com.company.game;
 
 import com.company.*;
 import com.company.actor.MovingActor;
+import com.company.actor.Position;
 import com.company.actor.duck.Duck;
 import com.company.actor.obstacles.Cloud;
+import com.company.actor.obstacles.Tree;
 import com.company.game.difficulty.Difficulty;
 
 import javax.sound.sampled.AudioSystem;
@@ -13,6 +15,8 @@ import javax.swing.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
 
 public class GameController {
 
@@ -22,8 +26,12 @@ public class GameController {
 
     private Clip musicClip;
 
+    //Difficulty
     private SpawnRate duckSpawnRate;
     private SpawnRate obstacleSpawnRate;
+    private int treesToSpawn;
+
+    private Position[] treePossibleSpawn;
 
     private int ammoUpgrade;
     private int damageUpgrade;
@@ -44,6 +52,12 @@ public class GameController {
 
         musicClip = AudioSystem.getClip();
         musicClip.open(Assets.peacefulDuckSong);
+
+        treePossibleSpawn = new Position[]{
+                new Position(250, 100),
+                new Position(100, 250),
+                new Position(600, 300)
+        };
     }
 
     public void reset() {
@@ -54,22 +68,22 @@ public class GameController {
         ammo = Settings.baseAmmo;
         musicClip.setFramePosition(0);
 
-        SwingUtilities.invokeLater(() -> {
-            Iterator<MovingActor> iterator = spawnedActors.iterator();
-            while(iterator.hasNext()){
-                MovingActor actor = iterator.next();
-                if(actor instanceof Duck){
-                    Main.getGameFrame().getGamePane().getShootingPane().remove(actor);
+        Iterator<MovingActor> iterator = spawnedActors.iterator();
+        while(iterator.hasNext()){
+            MovingActor actor = iterator.next();
+                /*if(actor instanceof Duck){
+                    Main.getGameFrame().getGamePane().getShootingLayers().get("duckLayer").remove(actor);
                 }
-                else{
+                else if(actor instanceof Cloud){
                     Main.getGameFrame().getGamePane().getObstaclePane().remove(actor);
-                }
-                iterator.remove();
-            }
+                }*/
+            Main.getGameFrame().getGamePane().getShootingLayers().get(actor.getLayer()).remove(actor);
+            iterator.remove();
+        }
 
-            Main.getGameFrame().getGamePane().getShootingPane().updateUI();
-            Main.getGameFrame().getGamePane().getObstaclePane().updateUI();
-        });
+        for(JPanel jPanel : Main.getGameFrame().getGamePane().getShootingLayers().values()){
+            jPanel.updateUI();
+        }
     }
 
     public void setDifficulty(Difficulty difficulty){
@@ -77,14 +91,17 @@ public class GameController {
             case EASY -> {
                 duckSpawnRate = new SpawnRate(200, 180, 2);
                 obstacleSpawnRate = new SpawnRate(200, 180, 0);
+                treesToSpawn = 1;
             }
             case NORMAL -> {
                 duckSpawnRate = new SpawnRate(150, 120, 3);
                 obstacleSpawnRate = new SpawnRate(150, 120, 0);
+                treesToSpawn = 2;
             }
             case DOOM -> {
                 duckSpawnRate = new SpawnRate(100, 90, 10);
                 obstacleSpawnRate = new SpawnRate(100, 90, 0);
+                treesToSpawn = 3;
             }
         }
     }
@@ -110,13 +127,36 @@ public class GameController {
     public void spawnDuck(){
         Duck duck = Duck.spawnNewDuck();
         spawnedActors.add(duck);
-        Main.getGameFrame().getGamePane().getShootingPane().add(duck);
+        //Main.getGameFrame().getGamePane().getShootingPane().add(duck);
+        Main.getGameFrame().getGamePane().getShootingLayers().get(duck.getLayer()).add(duck);
     }
 
     public void spawnCloud(){
         Cloud cloud = Cloud.spawnCloud();
         spawnedActors.add(cloud);
-        Main.getGameFrame().getGamePane().getObstaclePane().add(cloud);
+        //Main.getGameFrame().getGamePane().getObstaclePane().add(cloud);
+        Main.getGameFrame().getGamePane().getShootingLayers().get(cloud.getLayer()).add(cloud);
+    }
+
+    public void spawnTrees(){
+        Random random = new Random();
+        List<Integer> lockedSpawns = new ArrayList<>();
+
+        for(int i = 0; i < treesToSpawn; i++){
+            int spawnIndex = -1;
+            while(spawnIndex == -1 || lockedSpawns.contains(spawnIndex)){
+                spawnIndex = random.nextInt(treePossibleSpawn.length);
+            }
+            Tree tree = new Tree(treePossibleSpawn[spawnIndex]);
+            spawnedActors.add(tree);
+
+            System.out.println("Spawning tree at " + tree.getPosition());
+
+            //Main.getGameFrame().getGamePane().getObstaclePane().add(tree);
+            Main.getGameFrame().getGamePane().getShootingLayers().get(tree.getLayer()).add(tree);
+
+            lockedSpawns.add(spawnIndex);
+        }
     }
 
     public void setValuesOnScreen(){
@@ -178,32 +218,37 @@ public class GameController {
     }
 
     public void setGameActive(boolean gameActive) throws LineUnavailableException, IOException {
-        this.gameActive = gameActive;
-        if(gameActive){
-            reset();
+        SwingUtilities.invokeLater(() -> {
+            this.gameActive = gameActive;
+            if(gameActive){
+                reset();
 
-            if(gameLoop.isInterrupted() || !gameLoop.isAlive()){
-                gameLoop = new GameLoop(this);
-            }
-            gameLoop.start();
+                if(gameLoop.isInterrupted() || !gameLoop.isAlive()){
+                    gameLoop = new GameLoop(this);
+                }
 
-            musicClip.start();
-            setValuesOnScreen();
+                gameLoop.start();
 
-            if(Main.getGameTime().isInterrupted() || !Main.getGameTime().isAlive()){
-                Main.setGameTime(new GameTime());
+                musicClip.start();
+                setValuesOnScreen();
+
+                if(Main.getGameTime().isInterrupted() || !Main.getGameTime().isAlive()){
+                    Main.setGameTime(new GameTime());
+                }
+
+                Main.getGameTime().start();
             }
-            Main.getGameTime().start();
-        }
-        else{
-            if(!gameLoop.isInterrupted()){
-                gameLoop.interrupt();
+            else{
+                if(!gameLoop.isInterrupted()){
+                    gameLoop.interrupt();
+                }
+                if(!Main.getGameTime().isInterrupted()){
+                    Main.getGameTime().interrupt();
+                }
+                musicClip.stop();
             }
-            if(!Main.getGameTime().isInterrupted()){
-                Main.getGameTime().interrupt();
-            }
-            musicClip.stop();
-        }
+        });
+
     }
 
     public GameLoop getGameLoop() {

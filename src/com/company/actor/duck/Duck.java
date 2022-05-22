@@ -17,8 +17,8 @@ public abstract class Duck extends MovingActor {
 
         boolean isLeft = random.nextBoolean();
 
-        int bound = Main.getGameFrame().getGamePane().getShootingPane().getHeight();
-        int difference = Main.getGameFrame().getGamePane().getHeight() - Main.getGameFrame().getGamePane().getShootingPane().getHeight();
+        int bound = Main.getGameFrame().getGamePane().getShootingLayers().get("duckLayer").getHeight();
+        int difference = Main.getGameFrame().getGamePane().getHeight() - bound;
         difference = difference/2;
 
         Position position;
@@ -69,9 +69,8 @@ public abstract class Duck extends MovingActor {
         this.damage = damage;
         this.alive = true;
 
-        setBorder(BorderFactory.createEmptyBorder());
-        setContentAreaFilled(false);
         addActionListener(new DuckAction(this));
+        setLayer("duckLayer");
     }
 
     public void setLives(int lives) {
@@ -96,5 +95,15 @@ public abstract class Duck extends MovingActor {
 
     public void setAlive(boolean alive) {
         this.alive = alive;
+    }
+
+    @Override
+    public String toString() {
+        return "Duck{" +
+                "lives=" + lives +
+                ", score=" + score +
+                ", damage=" + damage +
+                ", alive=" + alive +
+                "} " + super.toString();
     }
 }

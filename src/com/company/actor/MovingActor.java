@@ -9,6 +9,7 @@ public abstract class MovingActor extends JButton {
     private int speed;
     private boolean alive;
     private ImageIcon imageIcon;
+    private String layer;
 
     public MovingActor(ImageIcon imageIcon, Position position, boolean left, int speed){
         super(new ImageIcon(imageIcon.getImage()));
@@ -17,6 +18,9 @@ public abstract class MovingActor extends JButton {
         this.left = left;
         this.speed = speed;
         this.alive = true;
+
+        setBorder(BorderFactory.createEmptyBorder());
+        setContentAreaFilled(false);
     }
 
     public void act(){
@@ -60,5 +64,24 @@ public abstract class MovingActor extends JButton {
 
     public void setAlive(boolean alive) {
         this.alive = alive;
+    }
+
+    @Override
+    public String toString() {
+        return "MovingActor{" +
+                "position=" + position +
+                ", left=" + left +
+                ", speed=" + speed +
+                ", alive=" + alive +
+                ", imageIcon=" + imageIcon +
+                "} " + super.toString();
+    }
+
+    public String getLayer() {
+        return layer;
+    }
+
+    public void setLayer(String layer) {
+        this.layer = layer;
     }
 }
