@@ -24,14 +24,14 @@ public class GameController {
 
     private GameLoop gameLoop;
 
-    private Clip musicClip;
+    private final Clip musicClip;
 
     //Difficulty
     private SpawnRate duckSpawnRate;
     private SpawnRate obstacleSpawnRate;
     private int treesToSpawn;
 
-    private Position[] treePossibleSpawn;
+    private final Position[] treePossibleSpawn;
 
     private int ammoUpgrade;
     private int damageUpgrade;
@@ -56,7 +56,12 @@ public class GameController {
         treePossibleSpawn = new Position[]{
                 new Position(250, 100),
                 new Position(100, 250),
-                new Position(600, 300)
+                new Position(600, 300),
+                new Position(800, 100),
+                new Position(50, 50),
+                new Position(800, 100),
+                new Position(900, 250),
+                new Position(1000, 300),
         };
     }
 
@@ -71,12 +76,6 @@ public class GameController {
         Iterator<MovingActor> iterator = spawnedActors.iterator();
         while(iterator.hasNext()){
             MovingActor actor = iterator.next();
-                /*if(actor instanceof Duck){
-                    Main.getGameFrame().getGamePane().getShootingLayers().get("duckLayer").remove(actor);
-                }
-                else if(actor instanceof Cloud){
-                    Main.getGameFrame().getGamePane().getObstaclePane().remove(actor);
-                }*/
             Main.getGameFrame().getGamePane().getShootingLayers().get(actor.getLayer()).remove(actor);
             iterator.remove();
         }
@@ -127,14 +126,12 @@ public class GameController {
     public void spawnDuck(){
         Duck duck = Duck.spawnNewDuck();
         spawnedActors.add(duck);
-        //Main.getGameFrame().getGamePane().getShootingPane().add(duck);
         Main.getGameFrame().getGamePane().getShootingLayers().get(duck.getLayer()).add(duck);
     }
 
     public void spawnCloud(){
         Cloud cloud = Cloud.spawnCloud();
         spawnedActors.add(cloud);
-        //Main.getGameFrame().getGamePane().getObstaclePane().add(cloud);
         Main.getGameFrame().getGamePane().getShootingLayers().get(cloud.getLayer()).add(cloud);
     }
 
@@ -150,9 +147,6 @@ public class GameController {
             Tree tree = new Tree(treePossibleSpawn[spawnIndex]);
             spawnedActors.add(tree);
 
-            System.out.println("Spawning tree at " + tree.getPosition());
-
-            //Main.getGameFrame().getGamePane().getObstaclePane().add(tree);
             Main.getGameFrame().getGamePane().getShootingLayers().get(tree.getLayer()).add(tree);
 
             lockedSpawns.add(spawnIndex);

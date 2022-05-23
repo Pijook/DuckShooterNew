@@ -19,7 +19,7 @@ public abstract class Duck extends MovingActor {
 
         int bound = Main.getGameFrame().getGamePane().getShootingLayers().get("duckLayer").getHeight();
         int difference = Main.getGameFrame().getGamePane().getHeight() - bound;
-        difference = difference/2;
+        //difference = difference/2;
 
         Position position;
         if(isLeft){
@@ -35,23 +35,30 @@ public abstract class Duck extends MovingActor {
             );
         }
 
-        ImageIcon imageIcon;
-        if(isLeft){
-            imageIcon = Assets.animatedDuckLeft;
-        }
-        else{
-            imageIcon = Assets.animatedDuckRight;
-        }
-
         Duck duck;
         if(chance <= 5){
-            duck = new HardDuck(position, isLeft, imageIcon);
+            if(isLeft){
+                duck = new HardDuck(position, isLeft, Assets.hardDuckLeft);
+            }
+            else{
+                duck = new HardDuck(position, isLeft, Assets.hardDuckRight);
+            }
         }
         else if(chance <= 35){
-            duck = new MediumDuck(position, isLeft, imageIcon);
+            if(isLeft){
+                duck = new MediumDuck(position, isLeft, Assets.mediumDuckLeft);
+            }
+            else{
+                duck = new MediumDuck(position, isLeft, Assets.mediumDuckRight);
+            }
         }
         else{
-            duck = new EasyDuck(position, isLeft, imageIcon);
+            if(isLeft){
+                duck = new EasyDuck(position, isLeft, Assets.easyDuckLeft);
+            }
+            else{
+                duck = new EasyDuck(position, isLeft, Assets.easyDuckRight);
+            }
         }
 
         return duck;

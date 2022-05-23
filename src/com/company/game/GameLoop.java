@@ -23,7 +23,7 @@ public class GameLoop extends Thread {
     @Override
     public void run() {
         super.run();
-        //Controllers.getGameController().spawnTrees();
+        Controllers.getGameController().spawnTrees();
         while(!isInterrupted() && gameController.isGameActive()){
             Iterator<MovingActor> iterator = gameController.getSpawnedActors().iterator();
 
@@ -60,22 +60,11 @@ public class GameLoop extends Thread {
 
             for(MovingActor movingActor : toRemove){
                 SwingUtilities.invokeLater(() -> {
-                    /*if(movingActor instanceof Duck){
-                        Main.getGameFrame().getGamePane().getShootingPane().remove(movingActor);
-                    }
-                    else if(movingActor instanceof Tree){
-                        System.out.println("Removing trreeeee!");
-                    }
-                    else{
-                        Main.getGameFrame().getGamePane().getObstaclePane().remove(movingActor);
-                    }*/
                     Main.getGameFrame().getGamePane().getShootingLayers().get(movingActor.getLayer()).remove(movingActor);
                 });
             }
 
             SwingUtilities.invokeLater(() -> {
-                /*Main.getGameFrame().getGamePane().getShootingPane().updateUI();
-                Main.getGameFrame().getGamePane().getObstaclePane().updateUI();*/
                 for(JPanel jPanel : Main.getGameFrame().getGamePane().getShootingLayers().values()){
                     jPanel.updateUI();
                 }
@@ -95,7 +84,7 @@ public class GameLoop extends Thread {
             gameController.getObstacleSpawnRate().setTempRate(gameController.getObstacleSpawnRate().getTempRate() + 1);
 
             try {
-                sleep(1000 / Settings.fps);
+                sleep(1000 / Settings.speed);
             } catch (InterruptedException e) {
                 break;
             }

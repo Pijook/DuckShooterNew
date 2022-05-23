@@ -20,8 +20,15 @@ public class Assets {
     //public static ImageIcon animatedDuckLeft;
     //public static ImageIcon animatedDuckRight;
 
-    public static ImageIcon[] duckLeft;
-    public static ImageIcon[] duckRight;
+    //Easy
+    public static ImageIcon easyDuckLeft;
+    public static ImageIcon easyDuckRight;
+    //Medium
+    public static ImageIcon mediumDuckLeft;
+    public static ImageIcon mediumDuckRight;
+    //Hard
+    public static ImageIcon hardDuckLeft;
+    public static ImageIcon hardDuckRight;
 
     public static ImageIcon backgroundImage;
 
@@ -58,12 +65,14 @@ public class Assets {
     private static void loadTextures() {
         programIcon = new ImageIcon("resources/textures/icon.png");
 
-        //animatedDuckLeft = new ImageIcon("resources/textures/duckLeft.gif");
-        //animatedDuckRight = new ImageIcon("resources/textures/duckRight.gif");
-        duckLeft = new ImageIcon[3];
-        duckRight = new ImageIcon[3];
-        //animatedDuckLeft = new ImageIcon("resources/textures/duckFramesSmall/hard/brown_duck.gif");
-        //animatedDuckRight = new ImageIcon("resources/textures/duckFramesSmall/hard/brown_duck.gif");
+        easyDuckLeft = new ImageIcon("resources/textures/duckFramesSmall/easy/duckWhiteLeft.gif");
+        easyDuckRight = new ImageIcon("resources/textures/duckFramesSmall/easy/duckWhiteRight.gif");
+
+        mediumDuckLeft = new ImageIcon("resources/textures/duckFramesSmall/medium/duckGreenLeft.gif");
+        mediumDuckRight = new ImageIcon("resources/textures/duckFramesSmall/medium/duckGreenRight.gif");
+
+        hardDuckLeft = new ImageIcon("resources/textures/duckFramesSmall/hard/duckBrownLeft.gif");
+        hardDuckRight = new ImageIcon("resources/textures/duckFramesSmall/hard/duckBrownRight.gif");
 
         backgroundImage = new ImageIcon("resources/textures/backgroundBig.png");
 
@@ -73,27 +82,48 @@ public class Assets {
         yellowButtonImage = new ImageIcon("resources/textures/ui/yellowButton.png");
 
         clouds = new ImageIcon[8];
-        for(int i = 1; i <= 8; i++){
+        for(int i = 1; i <= clouds.length; i++){
             clouds[i - 1] = new ImageIcon("resources/textures/obstacles/cloud" + i + ".png");
         }
 
-        /*trees = new ImageIcon[2];
+        trees = new ImageIcon[2];
         for(int i = 1; i <= 2; i++){
             trees[i - 1] = new ImageIcon("resources/textures/obstacles/tree" + i + ".png");
             System.out.println(trees[i - 1].getIconWidth());
-        }*/
+        }
 
         scaleImages();
     }
 
     private static void scaleImages(){
-        //animatedDuckLeft.setImage(animatedDuckLeft.getImage().getScaledInstance(animatedDuckLeft.getIconWidth() * 4, animatedDuckLeft.getIconHeight() * 4, Image.SCALE_DEFAULT));
-        //animatedDuckRight.setImage(animatedDuckRight.getImage().getScaledInstance(animatedDuckRight.getIconWidth() * 4, animatedDuckRight.getIconHeight() * 4, Image.SCALE_DEFAULT));
+        int duckScaleRatio = 2;
+        //Easy
+        easyDuckLeft.setImage(easyDuckLeft.getImage().getScaledInstance(easyDuckLeft.getIconWidth() * duckScaleRatio, easyDuckLeft.getIconHeight() * duckScaleRatio, Image.SCALE_DEFAULT));
+        easyDuckRight.setImage(easyDuckRight.getImage().getScaledInstance(easyDuckRight.getIconWidth() * duckScaleRatio, easyDuckRight.getIconHeight() * duckScaleRatio, Image.SCALE_DEFAULT));
+        //Medium
+        mediumDuckLeft.setImage(mediumDuckLeft.getImage().getScaledInstance(mediumDuckLeft.getIconWidth() * duckScaleRatio, mediumDuckLeft.getIconHeight() * duckScaleRatio, Image.SCALE_DEFAULT));
+        mediumDuckRight.setImage(mediumDuckRight.getImage().getScaledInstance(mediumDuckRight.getIconWidth() * duckScaleRatio, mediumDuckRight.getIconHeight() * duckScaleRatio, Image.SCALE_DEFAULT));
+        //Hard
+        hardDuckLeft.setImage(hardDuckLeft.getImage().getScaledInstance(hardDuckLeft.getIconWidth() * duckScaleRatio, hardDuckLeft.getIconHeight() * duckScaleRatio, Image.SCALE_DEFAULT));
+        hardDuckRight.setImage(hardDuckRight.getImage().getScaledInstance(hardDuckRight.getIconWidth() * duckScaleRatio, hardDuckRight.getIconHeight() * duckScaleRatio, Image.SCALE_DEFAULT));
+
+        //Clouds
+        int cloudScaleRatio = 7;
+        for(int i = 0; i < clouds.length; i++){
+            ImageIcon imageIcon = clouds[i];
+            clouds[i].setImage(clouds[i].getImage().getScaledInstance(imageIcon.getIconWidth() * cloudScaleRatio, imageIcon.getIconHeight() * cloudScaleRatio, Image.SCALE_DEFAULT));
+        }
+
+        //Trees
+        int treeScaleRatio = 2;
+        for(int i = 0; i < trees.length; i++){
+            ImageIcon imageIcon = trees[i];
+            trees[i].setImage(trees[i].getImage().getScaledInstance(imageIcon.getIconWidth() * treeScaleRatio, imageIcon.getIconHeight() * treeScaleRatio, Image.SCALE_DEFAULT));
+        }
     }
 
     private static void loadSounds() throws UnsupportedAudioFileException, IOException {
         peacefulDuckSong = AudioSystem.getAudioInputStream(new File("resources/music/peacefulduckmusic.wav"));
-        //quackSound = AudioSystem.getAudioInputStream(new File("resources/music/quackSound.wav"));
 
         //TODO Add quacking in the 90's as music
     }
