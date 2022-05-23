@@ -1,13 +1,10 @@
 package com.company.leaderboard;
 
 import com.company.Assets;
-import com.company.Controllers;
 import com.company.Frame;
 import com.company.Main;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.*;
 

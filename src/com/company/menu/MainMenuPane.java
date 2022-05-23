@@ -8,7 +8,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 
 public class MainMenuPane extends JPanel {
 
@@ -39,7 +38,7 @@ public class MainMenuPane extends JPanel {
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Main.getGameFrame().getCardLayout().show(Main.getGameFrame().getMainPane(), com.company.Frame.DIFFICULTY.name());
+                Main.getGameFrame().getCardLayout().show(Main.getGameFrame().getMainPane(), Frame.DIFFICULTY.name());
             }
         });
 
