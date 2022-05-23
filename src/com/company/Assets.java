@@ -108,7 +108,7 @@ public class Assets {
         hardDuckRight.setImage(hardDuckRight.getImage().getScaledInstance(hardDuckRight.getIconWidth() * duckScaleRatio, hardDuckRight.getIconHeight() * duckScaleRatio, Image.SCALE_DEFAULT));
 
         //Clouds
-        int cloudScaleRatio = 7;
+        int cloudScaleRatio = 10;
         for(int i = 0; i < clouds.length; i++){
             ImageIcon imageIcon = clouds[i];
             clouds[i].setImage(clouds[i].getImage().getScaledInstance(imageIcon.getIconWidth() * cloudScaleRatio, imageIcon.getIconHeight() * cloudScaleRatio, Image.SCALE_DEFAULT));

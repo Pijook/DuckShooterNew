@@ -8,7 +8,7 @@ import javax.swing.*;
 public class HardDuck extends Duck {
 
     public HardDuck(Position position, boolean left, ImageIcon imageIcon) {
-        super(3, 500, 5,5, position, left, imageIcon);
+        super(3, 500, 3,5, position, left, imageIcon);
     }
 
 }
