@@ -25,51 +25,6 @@ public class GameLoop extends Thread {
         super.run();
         Controllers.getGameController().spawnTrees();
         while(!isInterrupted() && gameController.isGameActive()){
-            Iterator<MovingActor> iterator = gameController.getSpawnedActors().iterator();
-
-            List<MovingActor> toRemove = new ArrayList<>();
-
-            while(iterator.hasNext()){
-                MovingActor actor = iterator.next();
-
-                actor.act();
-
-                if(!actor.isAlive()){
-                    toRemove.add(actor);
-                    iterator.remove();
-                    continue;
-                }
-
-                if(actor.isLeft()){
-                    if(actor.getPosition().getX() < -actor.getImageIcon().getIconWidth()){
-                        actor.setAlive(false);
-                    }
-                }
-                else{
-                    if(actor.getPosition().getX() > Settings.width){
-                        actor.setAlive(false);
-                    }
-                }
-
-                if(!actor.isAlive()){
-                    if(actor instanceof Duck duck){
-                        gameController.setLives(gameController.getLives() - duck.getDamage());
-                    }
-                }
-            }
-
-            for(MovingActor movingActor : toRemove){
-                SwingUtilities.invokeLater(() -> {
-                    Main.getGameFrame().getGamePane().getShootingLayers().get(movingActor.getLayer()).remove(movingActor);
-                });
-            }
-
-            SwingUtilities.invokeLater(() -> {
-                for(JPanel jPanel : Main.getGameFrame().getGamePane().getShootingLayers().values()){
-                    jPanel.updateUI();
-                }
-            });
-
             if(gameController.getDuckSpawnRate().readyToSpawn()){
                 gameController.spawnDuck();
                 gameController.getDuckSpawnRate().resetSpawnRate();

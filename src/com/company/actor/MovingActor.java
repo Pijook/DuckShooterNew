@@ -1,15 +1,21 @@
 package com.company.actor;
 
+import com.company.Controllers;
+import com.company.Main;
+import com.company.Settings;
+
 import javax.swing.*;
 
 public abstract class MovingActor extends JButton {
 
     private Position position;
-    private boolean left;
-    private int speed;
+    private final boolean left;
+    private final int speed;
     private boolean alive;
     private ImageIcon imageIcon;
     private String layer;
+
+    private final Thread thread;
 
     public MovingActor(ImageIcon imageIcon, Position position, boolean left, int speed){
         super(new ImageIcon(imageIcon.getImage()));
@@ -21,14 +27,39 @@ public abstract class MovingActor extends JButton {
 
         setBorder(BorderFactory.createEmptyBorder());
         setContentAreaFilled(false);
+
+        thread = new Thread(() -> {
+            while(!Thread.interrupted() && Controllers.getGameController().isGameActive()){
+                try{
+                    Thread.sleep(1000 / Settings.speed);
+                    act();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                    break;
+                }
+            }
+
+            Main.getGameFrame().getGamePane().getShootingLayers().get(layer).remove(this);
+        });
+        thread.start();
     }
 
     public void act(){
         if(isLeft()){
             position.move(-speed, 0);
+            if(getPosition().getX() < -getImageIcon().getIconWidth()){
+                setAlive(false);
+            }
         }
         else{
             position.move(speed, 0);
+            if(getPosition().getX() > Settings.width){
+                setAlive(false);
+            }
+        }
+
+        if(!alive){
+            thread.interrupt();
         }
 
         setBounds(position.getX(), position.getY(), imageIcon.getIconWidth(), imageIcon.getIconHeight());

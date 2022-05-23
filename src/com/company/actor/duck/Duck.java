@@ -1,5 +1,6 @@
 package com.company.actor.duck;
 
+import com.company.Controllers;
 import com.company.Main;
 import com.company.Settings;
 import com.company.Assets;
@@ -67,17 +68,32 @@ public abstract class Duck extends MovingActor {
     private int lives;
     private final int score;
     private final int damage;
-    private boolean alive;
 
     public Duck(int lives, int score, int damage, int speed, Position position, boolean left, ImageIcon imageIcon) {
         super(imageIcon, position, left, speed);
         this.lives = lives;
         this.score = score;
         this.damage = damage;
-        this.alive = true;
 
         addActionListener(new DuckAction(this));
         setLayer("duckLayer");
+    }
+
+    @Override
+    public void act() {
+        super.act();
+        if(!isAlive()){
+            if(isLeft()){
+                if(getPosition().getX() < -getImageIcon().getIconWidth()){
+                    Controllers.getGameController().setLives(Controllers.getGameController().getLives() - damage);
+                }
+            }
+            else{
+                if(getPosition().getX() > Settings.width){
+                    Controllers.getGameController().setLives(Controllers.getGameController().getLives() - damage);
+                }
+            }
+        }
     }
 
     public void setLives(int lives) {
@@ -94,23 +110,5 @@ public abstract class Duck extends MovingActor {
 
     public int getDamage() {
         return damage;
-    }
-
-    public boolean isAlive() {
-        return alive;
-    }
-
-    public void setAlive(boolean alive) {
-        this.alive = alive;
-    }
-
-    @Override
-    public String toString() {
-        return "Duck{" +
-                "lives=" + lives +
-                ", score=" + score +
-                ", damage=" + damage +
-                ", alive=" + alive +
-                "} " + super.toString();
     }
 }

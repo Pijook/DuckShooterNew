@@ -20,8 +20,6 @@ import java.util.Random;
 
 public class GameController {
 
-    private final ArrayList<MovingActor> spawnedActors;
-
     private GameLoop gameLoop;
 
     private final Clip musicClip;
@@ -44,7 +42,6 @@ public class GameController {
     private boolean gameActive;
 
     public GameController() throws LineUnavailableException, IOException {
-        spawnedActors = new ArrayList<>();
         gameLoop = new GameLoop(this);
 
         ammoUpgrade = 0;
@@ -72,17 +69,6 @@ public class GameController {
         damage = Settings.baseDamage;
         ammo = Settings.baseAmmo;
         musicClip.setFramePosition(0);
-
-        Iterator<MovingActor> iterator = spawnedActors.iterator();
-        while(iterator.hasNext()){
-            MovingActor actor = iterator.next();
-            Main.getGameFrame().getGamePane().getShootingLayers().get(actor.getLayer()).remove(actor);
-            iterator.remove();
-        }
-
-        for(JPanel jPanel : Main.getGameFrame().getGamePane().getShootingLayers().values()){
-            jPanel.updateUI();
-        }
     }
 
     public void setDifficulty(Difficulty difficulty){
@@ -125,13 +111,11 @@ public class GameController {
 
     public void spawnDuck(){
         Duck duck = Duck.spawnNewDuck();
-        spawnedActors.add(duck);
         Main.getGameFrame().getGamePane().getShootingLayers().get(duck.getLayer()).add(duck);
     }
 
     public void spawnCloud(){
         Cloud cloud = Cloud.spawnCloud();
-        spawnedActors.add(cloud);
         Main.getGameFrame().getGamePane().getShootingLayers().get(cloud.getLayer()).add(cloud);
     }
 
@@ -145,7 +129,6 @@ public class GameController {
                 spawnIndex = random.nextInt(treePossibleSpawn.length);
             }
             Tree tree = new Tree(treePossibleSpawn[spawnIndex]);
-            spawnedActors.add(tree);
 
             Main.getGameFrame().getGamePane().getShootingLayers().get(tree.getLayer()).add(tree);
 
@@ -247,10 +230,6 @@ public class GameController {
 
     public GameLoop getGameLoop() {
         return gameLoop;
-    }
-
-    public synchronized ArrayList<MovingActor> getSpawnedActors() {
-        return spawnedActors;
     }
 
     public int getDamageUpgrade() {
