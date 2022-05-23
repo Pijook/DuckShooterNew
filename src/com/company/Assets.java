@@ -17,8 +17,12 @@ public class Assets {
      */
     public static ImageIcon programIcon;
 
-    public static ImageIcon animatedDuckLeft;
-    public static ImageIcon animatedDuckRight;
+    //public static ImageIcon animatedDuckLeft;
+    //public static ImageIcon animatedDuckRight;
+
+    public static ImageIcon[] duckLeft;
+    public static ImageIcon[] duckRight;
+
     public static ImageIcon backgroundImage;
 
     public static ImageIcon blueButtonImage;
@@ -54,8 +58,13 @@ public class Assets {
     private static void loadTextures() {
         programIcon = new ImageIcon("resources/textures/icon.png");
 
-        animatedDuckLeft = new ImageIcon("resources/textures/duckLeft.gif");
-        animatedDuckRight = new ImageIcon("resources/textures/duckRight.gif");
+        //animatedDuckLeft = new ImageIcon("resources/textures/duckLeft.gif");
+        //animatedDuckRight = new ImageIcon("resources/textures/duckRight.gif");
+        duckLeft = new ImageIcon[3];
+        duckRight = new ImageIcon[3];
+        //animatedDuckLeft = new ImageIcon("resources/textures/duckFramesSmall/hard/brown_duck.gif");
+        //animatedDuckRight = new ImageIcon("resources/textures/duckFramesSmall/hard/brown_duck.gif");
+
         backgroundImage = new ImageIcon("resources/textures/backgroundBig.png");
 
         blueButtonImage = new ImageIcon("resources/textures/ui/blueButtonBig.png");
@@ -65,14 +74,21 @@ public class Assets {
 
         clouds = new ImageIcon[8];
         for(int i = 1; i <= 8; i++){
-            clouds[i - 1] = new ImageIcon("resources/textures/obstacles/cloudBig" + i + ".png");
+            clouds[i - 1] = new ImageIcon("resources/textures/obstacles/cloud" + i + ".png");
         }
 
-        trees = new ImageIcon[2];
+        /*trees = new ImageIcon[2];
         for(int i = 1; i <= 2; i++){
             trees[i - 1] = new ImageIcon("resources/textures/obstacles/tree" + i + ".png");
             System.out.println(trees[i - 1].getIconWidth());
-        }
+        }*/
+
+        scaleImages();
+    }
+
+    private static void scaleImages(){
+        //animatedDuckLeft.setImage(animatedDuckLeft.getImage().getScaledInstance(animatedDuckLeft.getIconWidth() * 4, animatedDuckLeft.getIconHeight() * 4, Image.SCALE_DEFAULT));
+        //animatedDuckRight.setImage(animatedDuckRight.getImage().getScaledInstance(animatedDuckRight.getIconWidth() * 4, animatedDuckRight.getIconHeight() * 4, Image.SCALE_DEFAULT));
     }
 
     private static void loadSounds() throws UnsupportedAudioFileException, IOException {

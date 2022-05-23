@@ -23,7 +23,7 @@ public class GameLoop extends Thread {
     @Override
     public void run() {
         super.run();
-        Controllers.getGameController().spawnTrees();
+        //Controllers.getGameController().spawnTrees();
         while(!isInterrupted() && gameController.isGameActive()){
             Iterator<MovingActor> iterator = gameController.getSpawnedActors().iterator();
 
