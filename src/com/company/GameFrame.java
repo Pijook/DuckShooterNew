@@ -45,8 +45,6 @@ public class GameFrame extends JFrame {
                 if(Controllers.getGameController().isGameActive()){
                     Controllers.getGameController().end();
                 }
-                //Main.save();
-               // System.exit(0);
             }
         });
 
