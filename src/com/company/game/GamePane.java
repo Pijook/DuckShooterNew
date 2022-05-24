@@ -109,7 +109,7 @@ public class GamePane extends JPanel {
         /*
             Upgrade damage button
          */
-        upgradeDamageButton = new UpgradeButton("<html><center>Upgrade damage!<br>(" + Settings.damageUpgradeCost + ")</center></html>");
+        upgradeDamageButton = new UpgradeButton("<html><center>Upgrade damage!<br>(" + Settings.damageUpgradeCost + ")<br>Current: " + Controllers.getGameController().getAmmoUpgrade() + "</center></html>");
         upgradeDamageButton.setFont(Assets.rainyHeartsFont.deriveFont(20f));
         upgradeDamageButton.addActionListener(new AbstractAction() {
             @Override
