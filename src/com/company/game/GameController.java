@@ -69,6 +69,8 @@ public class GameController {
         score = 0;
         damage = Settings.baseDamage;
         ammo = Settings.baseAmmo;
+        ammoUpgrade = 0;
+        damageUpgrade = 0;
         musicClip.setFramePosition(0);
     }
 
@@ -196,43 +198,40 @@ public class GameController {
     }
 
     public void setGameActive(boolean gameActive) throws LineUnavailableException, IOException {
-        SwingUtilities.invokeLater(() -> {
-            this.gameActive = gameActive;
-            if(gameActive){
-                reset();
+        this.gameActive = gameActive;
+        if (gameActive) {
+            reset();
 
-                if(gameLoop.isInterrupted() || !gameLoop.isAlive()){
-                    gameLoop = new GameLoop(this);
-                }
+            if (gameLoop.isInterrupted() || !gameLoop.isAlive()) {
+                gameLoop = new GameLoop(this);
+            }
 
-                gameLoop.start();
+            gameLoop.start();
 
                 /*
                     From percent to decibel
                  */
-                float range = volumeControl.getMinimum();
-                float result = range * (1 - Settings.volumeLevel / 100.0f);
-                volumeControl.setValue(result);
-                musicClip.start();
+            float range = volumeControl.getMinimum();
+            float result = range * (1 - Settings.volumeLevel / 100.0f);
+            volumeControl.setValue(result);
+            musicClip.start();
 
-                setValuesOnScreen();
+            setValuesOnScreen();
 
-                if(Main.getGameTime().isInterrupted() || !Main.getGameTime().isAlive()){
-                    Main.setGameTime(new GameTime());
-                }
-
-                Main.getGameTime().start();
+            if (Main.getGameTime().isInterrupted() || !Main.getGameTime().isAlive()) {
+                Main.setGameTime(new GameTime());
             }
-            else{
-                if(!gameLoop.isInterrupted()){
-                    gameLoop.interrupt();
-                }
-                if(!Main.getGameTime().isInterrupted()){
-                    Main.getGameTime().interrupt();
-                }
-                musicClip.stop();
+
+            Main.getGameTime().start();
+        } else {
+            if (!gameLoop.isInterrupted()) {
+                gameLoop.interrupt();
             }
-        });
+            if (!Main.getGameTime().isInterrupted()) {
+                Main.getGameTime().interrupt();
+            }
+            musicClip.stop();
+        }
 
     }
 

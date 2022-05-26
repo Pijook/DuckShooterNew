@@ -35,7 +35,6 @@ public abstract class MovingActor extends JButton {
                     Thread.sleep(1000 / Settings.speed);
                     act();
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
                     break;
                 }
             }

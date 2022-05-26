@@ -78,11 +78,6 @@ public class GamePane extends JPanel {
             Ammo button
          */
         ammoButton = new UpgradeButton("Ammo: " + Controllers.getGameController().getAmmo());//new JButton("Ammo: " + Controllers.getGameController().getAmmo());
-        /*ammoButton.setIcon(Assets.greenButtonImage);
-        ammoButton.setContentAreaFilled(false);
-        ammoButton.setBorder(BorderFactory.createEmptyBorder());
-        ammoButton.setFont(Assets.rainyHeartsFont.deriveFont(28f));
-        ammoButton.setHorizontalAlignment(SwingConstants.HORIZONTAL);*/
         ammoButton.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -95,7 +90,6 @@ public class GamePane extends JPanel {
          */
         upgradeAmmoButton = new UpgradeButton("<html><center>Upgrade magazine size!<br>(" + Settings.ammoUpgradeCost + ")</center></html>");//new JButton("<html><center>Upgrade reload time!<br>(" + Settings.ammoUpgradeCost + ")</center></html>");
         upgradeAmmoButton.setFont(Assets.rainyHeartsFont.deriveFont(16f));
-        //upgradeAmmoButton.setFont(Assets.rainyHeartsFont.deriveFont(24f));
         upgradeAmmoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -109,7 +103,7 @@ public class GamePane extends JPanel {
         /*
             Upgrade damage button
          */
-        upgradeDamageButton = new UpgradeButton("<html><center>Upgrade damage!<br>(" + Settings.damageUpgradeCost + ")<br>Current: " + Controllers.getGameController().getAmmoUpgrade() + "</center></html>");
+        upgradeDamageButton = new UpgradeButton("<html><center>Upgrade damage!<br>(" + Settings.damageUpgradeCost + ")<br>Current: " + Controllers.getGameController().getDamageUpgrade() + "</center></html>");
         upgradeDamageButton.setFont(Assets.rainyHeartsFont.deriveFont(16f));
         upgradeDamageButton.addActionListener(new AbstractAction() {
             @Override
@@ -117,6 +111,7 @@ public class GamePane extends JPanel {
                 if(gameController.getScore() >= Settings.damageUpgradeCost){
                     gameController.setDamageUpgrade(gameController.getDamageUpgrade() + 1);
                     gameController.setScore(gameController.getScore() - Settings.damageUpgradeCost);
+                    upgradeDamageButton.setText("<html><center>Upgrade damage!<br>(" + Settings.damageUpgradeCost + ")<br>Current: " + Controllers.getGameController().getDamageUpgrade() + "</center></html>");
                 }
             }
         });
