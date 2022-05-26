@@ -111,7 +111,7 @@ public class GamePane extends JPanel {
                 if(gameController.getScore() >= Settings.damageUpgradeCost){
                     gameController.setDamageUpgrade(gameController.getDamageUpgrade() + 1);
                     gameController.setScore(gameController.getScore() - Settings.damageUpgradeCost);
-                    upgradeDamageButton.setText("<html><center>Upgrade damage!<br>(" + Settings.damageUpgradeCost + ")<br>Current: " + Controllers.getGameController().getDamageUpgrade() + "</center></html>");
+                    //upgradeDamageButton.setText("<html><center>Upgrade damage!<br>(" + Settings.damageUpgradeCost + ")<br>Current: " + Controllers.getGameController().getDamageUpgrade() + "</center></html>");
                 }
             }
         });

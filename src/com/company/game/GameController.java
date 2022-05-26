@@ -244,8 +244,8 @@ public class GameController {
     }
 
     public void setDamageUpgrade(int damageUpgrade) {
-        Main.getGameFrame().getGamePane().getUpgradeDamageButton().setText("<html><center>Upgrade damage!<br>(" + Settings.damageUpgradeCost + ")<br>Current: " + this.damageUpgrade + "</center></html>");
         this.damageUpgrade = damageUpgrade;
+        Main.getGameFrame().getGamePane().getUpgradeDamageButton().setText("<html><center>Upgrade damage!<br>(" + Settings.damageUpgradeCost + ")<br>Current: " + this.damageUpgrade + "</center></html>");
     }
 
     public int getAmmoUpgrade() {
