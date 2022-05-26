@@ -43,7 +43,6 @@ public class Assets {
         Music
      */
     public static AudioInputStream peacefulDuckSong;
-    public static AudioInputStream quackSound;
 
     /*
         Fonts
@@ -120,8 +119,6 @@ public class Assets {
         double cloudScaleX = 10 * widthMultiplier;
         double cloudScaleY = 10 * heightMultiplier;
         for(int i = 0; i < clouds.length; i++){
-            //Image ImageIcon = clouds[i];
-            //clouds[i].setImage(clouds[i].getImage().getScaledInstance((int) (Image.getIconWidth() * cloudScaleX), (int) (Image.getIconHeight() * cloudScaleY), Image.SCALE_DEFAULT);
             clouds[i].setImage(scaleImage(clouds[i], cloudScaleX, cloudScaleY));
         }
 
@@ -129,15 +126,12 @@ public class Assets {
         double treeScaleX = 2 * widthMultiplier;
         double treeScaleY = 2 * heightMultiplier;
         for(int i = 0; i < trees.length; i++){
-            //Image ImageIcon = trees[i];
-            //trees[i].setImage(trees[i].getImage().getScaledInstance((int) (Image.getIconWidth() * treeScaleX), (int) (Image.getIconHeight() * treeScaleY), Image.SCALE_DEFAULT);
             trees[i].setImage(scaleImage(trees[i], treeScaleX, treeScaleY));
         }
 
         double buttonScaleX = 0.8 * widthMultiplier;
         double buttonScaleY = 0.8 * heightMultiplier;
         System.out.println(buttonScaleX);
-        //greenButtonImage.setImage(greenButtonImage.getImage().getScaledInstance((int) (greenButtonImage.getIconWidth() * buttonScaleX), (int) (greenButtonImage.getIconHeight() * buttonScaleY), Image.SCALE_DEFAULT);
         greenButtonImage.setImage(scaleImage(greenButtonImage, buttonScaleX, buttonScaleY));
 
         double backgroundScaleX = 1 * widthMultiplier;
@@ -154,7 +148,6 @@ public class Assets {
     private static void loadSounds() throws UnsupportedAudioFileException, IOException {
         peacefulDuckSong = AudioSystem.getAudioInputStream(new File("resources/music/peacefulduckmusic.wav"));
 
-        //TODO Add quacking in the 90's as music
     }
 
 }

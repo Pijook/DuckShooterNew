@@ -1,6 +1,7 @@
 package com.company;
 
 import javax.sound.sampled.LineUnavailableException;
+import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 
@@ -17,10 +18,8 @@ public class CustomCardLayout extends CardLayout {
         if(name.equalsIgnoreCase(Frame.GAME.name())){
             try {
                 Controllers.getGameController().setGameActive(true);
-            } catch (LineUnavailableException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+            } catch (LineUnavailableException | IOException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
             }
         }
         currentFrame = Frame.valueOf(name);

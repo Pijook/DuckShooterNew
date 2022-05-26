@@ -1,8 +1,9 @@
 package com.company.option;
 
-import com.company.*;
+import com.company.Assets;
 import com.company.Frame;
-import com.company.menu.MenuButton;
+import com.company.Main;
+import com.company.Settings;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,9 +26,16 @@ public class OptionsPane extends JPanel {
     }
 
     private void createElements(){
+
+        /*
+            Title label
+         */
         titleLabel = new JLabel("Options");
         titleLabel.setFont(Assets.rainyHeartsFont.deriveFont(72f));
 
+        /*
+            Resolution combo box
+         */
         resolutionModel = new ResolutionModel();
         resolutionsComboBox = new JComboBox<>();
         resolutionsComboBox.setModel(resolutionModel);
@@ -44,6 +52,9 @@ public class OptionsPane extends JPanel {
             }
         });
 
+        /*
+            Volume slider
+         */
         volumeSlider = new JSlider();
         volumeSlider.setValue(Settings.volumeLevel);
         volumeSlider.setOpaque(false);
@@ -53,6 +64,9 @@ public class OptionsPane extends JPanel {
         volumeSlider.setPaintTicks(true);
         volumeSlider.setSnapToTicks(true);
 
+        /*
+            Save button
+         */
         saveButton = new OptionButton("Save");
         saveButton.addActionListener(new ActionListener() {
             @Override
@@ -60,22 +74,17 @@ public class OptionsPane extends JPanel {
                 Settings.volumeLevel = volumeSlider.getValue();
 
                 SwingUtilities.invokeLater(() -> {
-                    /*Assets.scaleImages(
-                            (double) Settings.currentResolution.getWidth() / resolutionModel.getSelectedItem().getWidth(),
-                            (double) Settings.currentResolution.getHeight() / resolutionModel.getSelectedResolution().getHeight()
-                    );*/
-
-                    //Assets.scaleImages(1,1);
-
                     Settings.currentResolution = resolutionModel.getSelectedResolution();
 
                     Main.getGameFrame().setSize(Settings.currentResolution.getWidth(), Settings.currentResolution.getHeight());
-                    //Main.getGameFrame().repaint();
                 });
 
             }
         });
 
+        /*
+            Return button
+         */
         returnButton = new OptionButton("Return");
         returnButton.addActionListener(new ActionListener() {
             @Override
@@ -92,23 +101,38 @@ public class OptionsPane extends JPanel {
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = GridBagConstraints.CENTER;
 
+        /*
+            Title label
+         */
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         add(titleLabel, gridBagConstraints);
 
+        /*
+            Resolution combo box
+         */
         gridBagConstraints.insets = new Insets(45,0,0,0);
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         add(resolutionsComboBox, gridBagConstraints);
 
+        /*
+            Volume slider
+         */
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
         add(volumeSlider, gridBagConstraints);
 
+        /*
+            Save button
+         */
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
         add(saveButton, gridBagConstraints);
 
+        /*
+            Return button
+         */
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
         add(returnButton, gridBagConstraints);

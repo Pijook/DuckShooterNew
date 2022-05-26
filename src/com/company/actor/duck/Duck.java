@@ -18,23 +18,28 @@ public abstract class Duck extends MovingActor {
 
         boolean isLeft = random.nextBoolean();
 
-        int shootingPaneSize = Main.getGameFrame().getGamePane().getShootingLayers().get("duckLayer").getHeight();
-        int moveBy = Main.getGameFrame().getGamePane().getTimerLabel().getHeight();
-        //shootingPaneSize = shootingPaneSize - moveBy;
-        //difference = difference/2;
+        JPanel shootingPane = Main.getGameFrame().getGamePane().getShootingLayers().get("duckLayer");
+        int range = shootingPane.getHeight() - Assets.easyDuckRight.getIconHeight();
+        int moveBy = shootingPane.getX();
 
         Position position;
         if(isLeft){
             position = new Position(
                     Settings.currentResolution.getWidth(),
-                    random.nextInt(shootingPaneSize) + moveBy
+                    random.nextInt(range) + moveBy
             );
         }
         else{
             position = new Position(
                     0,
-                    random.nextInt(shootingPaneSize) + moveBy
+                    random.nextInt(range) + moveBy
             );
+        }
+
+        System.out.println("Generated y: " + position.getY());
+
+        if(position.getY() >= Main.getGameFrame().getGamePane().getUpgradeAmmoButton().getY()){
+            System.out.println("Error: " + position.getY());
         }
 
         Duck duck;

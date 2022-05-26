@@ -15,12 +15,12 @@ public class GameFrame extends JFrame {
     private CustomCardLayout cardLayout;
 
     //Panes
-    private JPanel mainPane;
-    private MainMenuPane mainMenuPane;
-    private LeaderboardPane leaderboardPane;
-    private GamePane gamePane;
-    private DifficultyPane difficultyPane;
-    private OptionsPane optionsPane;
+    private final JPanel mainPane;
+    private final MainMenuPane mainMenuPane;
+    private final LeaderboardPane leaderboardPane;
+    private final GamePane gamePane;
+    private final DifficultyPane difficultyPane;
+    private final OptionsPane optionsPane;
 
     public GameFrame(){
         setIconImage(Assets.programIcon.getImage());

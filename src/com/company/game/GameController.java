@@ -1,7 +1,6 @@
 package com.company.game;
 
 import com.company.*;
-import com.company.actor.MovingActor;
 import com.company.actor.Position;
 import com.company.actor.duck.Duck;
 import com.company.actor.obstacles.Cloud;
@@ -10,11 +9,11 @@ import com.company.game.difficulty.Difficulty;
 
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.swing.*;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -23,6 +22,7 @@ public class GameController {
     private GameLoop gameLoop;
 
     private final Clip musicClip;
+    private final FloatControl volumeControl;
 
     //Difficulty
     private SpawnRate duckSpawnRate;
@@ -49,6 +49,7 @@ public class GameController {
 
         musicClip = AudioSystem.getClip();
         musicClip.open(Assets.peacefulDuckSong);
+        volumeControl = (FloatControl) musicClip.getControl(FloatControl.Type.MASTER_GAIN);
 
         treePossibleSpawn = new Position[]{
                 new Position(250, 100),
@@ -206,7 +207,14 @@ public class GameController {
 
                 gameLoop.start();
 
+                /*
+                    From percent to decibel
+                 */
+                float range = volumeControl.getMinimum();
+                float result = range * (1 - Settings.volumeLevel / 100.0f);
+                volumeControl.setValue(result);
                 musicClip.start();
+
                 setValuesOnScreen();
 
                 if(Main.getGameTime().isInterrupted() || !Main.getGameTime().isAlive()){
