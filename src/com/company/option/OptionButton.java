@@ -1,15 +1,15 @@
-package com.company.game;
+package com.company.option;
 
 import com.company.Assets;
 
 import javax.swing.*;
 
-public class UpgradeButton extends JButton {
+public class OptionButton extends JButton {
 
-    public UpgradeButton(String text){
+    public OptionButton(String text){
         setText(text);
         setFont(Assets.rainyHeartsFont.deriveFont(24f));
-        //setIcon(Assets.greenButtonImage);
+        setIcon(Assets.greenButtonImage);
         setHorizontalTextPosition(SwingUtilities.HORIZONTAL);
         setContentAreaFilled(false);
         setBorder(BorderFactory.createEmptyBorder());

@@ -18,21 +18,22 @@ public abstract class Duck extends MovingActor {
 
         boolean isLeft = random.nextBoolean();
 
-        int bound = Main.getGameFrame().getGamePane().getShootingLayers().get("duckLayer").getHeight();
-        int difference = Main.getGameFrame().getGamePane().getHeight() - bound;
+        int shootingPaneSize = Main.getGameFrame().getGamePane().getShootingLayers().get("duckLayer").getHeight();
+        int moveBy = Main.getGameFrame().getGamePane().getTimerLabel().getHeight();
+        //shootingPaneSize = shootingPaneSize - moveBy;
         //difference = difference/2;
 
         Position position;
         if(isLeft){
             position = new Position(
-                    Settings.width,
-                    random.nextInt(bound) - difference
+                    Settings.currentResolution.getWidth(),
+                    random.nextInt(shootingPaneSize) + moveBy
             );
         }
         else{
             position = new Position(
                     0,
-                    random.nextInt(bound) - difference
+                    random.nextInt(shootingPaneSize) + moveBy
             );
         }
 
@@ -85,11 +86,13 @@ public abstract class Duck extends MovingActor {
         if(!isAlive()){
             if(isLeft()){
                 if(getPosition().getX() < -getImageIcon().getIconWidth()){
+                    System.out.println("taking live!");
                     Controllers.getGameController().setLives(Controllers.getGameController().getLives() - damage);
                 }
             }
             else{
-                if(getPosition().getX() > Settings.width){
+                if(getPosition().getX() > Settings.currentResolution.getWidth()){
+                    System.out.println("taking live!");
                     Controllers.getGameController().setLives(Controllers.getGameController().getLives() - damage);
                 }
             }

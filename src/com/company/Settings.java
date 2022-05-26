@@ -1,12 +1,15 @@
 package com.company;
 
+import com.company.option.Resolution;
+
 public class Settings {
 
     //Windows Settings
     public static String title = "Ducks!";
-    public static int width = 1280;
-    public static int height = 720;
+    public static Resolution baseResolution = new Resolution(1280, 720);
+    public static Resolution currentResolution = new Resolution(1280, 720);
     public static int speed = 60;
+    public static int volumeLevel = 100;
 
     //
     public static int lives = 10;

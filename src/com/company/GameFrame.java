@@ -4,6 +4,7 @@ import com.company.game.difficulty.DifficultyPane;
 import com.company.game.GamePane;
 import com.company.leaderboard.LeaderboardPane;
 import com.company.menu.MainMenuPane;
+import com.company.option.OptionsPane;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -19,13 +20,14 @@ public class GameFrame extends JFrame {
     private LeaderboardPane leaderboardPane;
     private GamePane gamePane;
     private DifficultyPane difficultyPane;
+    private OptionsPane optionsPane;
 
     public GameFrame(){
         setIconImage(Assets.programIcon.getImage());
         setVisible(true);
         setResizable(false);
         setTitle(Settings.title);
-        setSize(Settings.width, Settings.height);
+        setSize(Settings.currentResolution.getWidth(), Settings.currentResolution.getHeight());
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
@@ -36,6 +38,7 @@ public class GameFrame extends JFrame {
         mainPane.add(leaderboardPane = new LeaderboardPane(), Frame.LEADERBOARD.name());
         mainPane.add(gamePane = new GamePane(), Frame.GAME.name());
         mainPane.add(difficultyPane = new DifficultyPane(), Frame.DIFFICULTY.name());
+        mainPane.add(optionsPane = new OptionsPane(), Frame.OPTIONS.name());
 
         KeyStroke keyStroke = KeyStroke.getKeyStroke(KeyEvent.VK_Q, ActionEvent.CTRL_MASK + ActionEvent.SHIFT_MASK);
         mainPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(keyStroke, "closeHotkey");
@@ -73,5 +76,9 @@ public class GameFrame extends JFrame {
 
     public DifficultyPane getDifficultyPane() {
         return difficultyPane;
+    }
+
+    public OptionsPane getOptionsPane() {
+        return optionsPane;
     }
 }

@@ -6,7 +6,6 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
@@ -62,7 +61,7 @@ public class Assets {
         rainyHeartsFont = rainyHeartsFont.deriveFont(12f);
     }
 
-    private static void loadTextures() {
+    private static void loadTextures() throws IOException {
         programIcon = new ImageIcon("resources/textures/icon.png");
 
         easyDuckLeft = new ImageIcon("resources/textures/duckFramesSmall/easy/duckWhiteLeft.gif");
@@ -89,37 +88,67 @@ public class Assets {
         trees = new ImageIcon[2];
         for(int i = 1; i <= 2; i++){
             trees[i - 1] = new ImageIcon("resources/textures/obstacles/tree" + i + ".png");
-            System.out.println(trees[i - 1].getIconWidth());
         }
 
-        scaleImages();
+        scaleImages(1, 1);
     }
 
-    private static void scaleImages(){
-        int duckScaleRatio = 2;
+    public static void scaleImages(double widthMultiplier, double heightMultiplier){
+        System.out.println(widthMultiplier + " " + heightMultiplier);
+
+        widthMultiplier = widthMultiplier * 100;
+        widthMultiplier = (int) widthMultiplier;
+        widthMultiplier = widthMultiplier / 100;
+
+        heightMultiplier = heightMultiplier * 100;
+        heightMultiplier = (int) heightMultiplier;
+        heightMultiplier = heightMultiplier / 100;
+
+        double duckScaleX = 2 * widthMultiplier;
+        double duckScaleY = 2 * heightMultiplier;
         //Easy
-        easyDuckLeft.setImage(easyDuckLeft.getImage().getScaledInstance(easyDuckLeft.getIconWidth() * duckScaleRatio, easyDuckLeft.getIconHeight() * duckScaleRatio, Image.SCALE_DEFAULT));
-        easyDuckRight.setImage(easyDuckRight.getImage().getScaledInstance(easyDuckRight.getIconWidth() * duckScaleRatio, easyDuckRight.getIconHeight() * duckScaleRatio, Image.SCALE_DEFAULT));
+        easyDuckLeft.setImage(scaleImage(easyDuckLeft, duckScaleX, duckScaleY));
+        easyDuckRight.setImage(scaleImage(easyDuckRight, duckScaleX, duckScaleY));
         //Medium
-        mediumDuckLeft.setImage(mediumDuckLeft.getImage().getScaledInstance(mediumDuckLeft.getIconWidth() * duckScaleRatio, mediumDuckLeft.getIconHeight() * duckScaleRatio, Image.SCALE_DEFAULT));
-        mediumDuckRight.setImage(mediumDuckRight.getImage().getScaledInstance(mediumDuckRight.getIconWidth() * duckScaleRatio, mediumDuckRight.getIconHeight() * duckScaleRatio, Image.SCALE_DEFAULT));
+        mediumDuckLeft.setImage(scaleImage(mediumDuckLeft, duckScaleX, duckScaleY));
+        mediumDuckRight.setImage(scaleImage(mediumDuckRight, duckScaleX, duckScaleY));
         //Hard
-        hardDuckLeft.setImage(hardDuckLeft.getImage().getScaledInstance(hardDuckLeft.getIconWidth() * duckScaleRatio, hardDuckLeft.getIconHeight() * duckScaleRatio, Image.SCALE_DEFAULT));
-        hardDuckRight.setImage(hardDuckRight.getImage().getScaledInstance(hardDuckRight.getIconWidth() * duckScaleRatio, hardDuckRight.getIconHeight() * duckScaleRatio, Image.SCALE_DEFAULT));
+        hardDuckLeft.setImage(scaleImage(hardDuckLeft, duckScaleX, duckScaleY));
+        hardDuckRight.setImage(scaleImage(hardDuckRight, duckScaleX, duckScaleY));
 
         //Clouds
-        int cloudScaleRatio = 10;
+        double cloudScaleX = 10 * widthMultiplier;
+        double cloudScaleY = 10 * heightMultiplier;
         for(int i = 0; i < clouds.length; i++){
-            ImageIcon imageIcon = clouds[i];
-            clouds[i].setImage(clouds[i].getImage().getScaledInstance(imageIcon.getIconWidth() * cloudScaleRatio, imageIcon.getIconHeight() * cloudScaleRatio, Image.SCALE_DEFAULT));
+            //Image ImageIcon = clouds[i];
+            //clouds[i].setImage(clouds[i].getImage().getScaledInstance((int) (Image.getIconWidth() * cloudScaleX), (int) (Image.getIconHeight() * cloudScaleY), Image.SCALE_DEFAULT);
+            clouds[i].setImage(scaleImage(clouds[i], cloudScaleX, cloudScaleY));
         }
 
         //Trees
-        int treeScaleRatio = 2;
+        double treeScaleX = 2 * widthMultiplier;
+        double treeScaleY = 2 * heightMultiplier;
         for(int i = 0; i < trees.length; i++){
-            ImageIcon imageIcon = trees[i];
-            trees[i].setImage(trees[i].getImage().getScaledInstance(imageIcon.getIconWidth() * treeScaleRatio, imageIcon.getIconHeight() * treeScaleRatio, Image.SCALE_DEFAULT));
+            //Image ImageIcon = trees[i];
+            //trees[i].setImage(trees[i].getImage().getScaledInstance((int) (Image.getIconWidth() * treeScaleX), (int) (Image.getIconHeight() * treeScaleY), Image.SCALE_DEFAULT);
+            trees[i].setImage(scaleImage(trees[i], treeScaleX, treeScaleY));
         }
+
+        double buttonScaleX = 0.8 * widthMultiplier;
+        double buttonScaleY = 0.8 * heightMultiplier;
+        System.out.println(buttonScaleX);
+        //greenButtonImage.setImage(greenButtonImage.getImage().getScaledInstance((int) (greenButtonImage.getIconWidth() * buttonScaleX), (int) (greenButtonImage.getIconHeight() * buttonScaleY), Image.SCALE_DEFAULT);
+        greenButtonImage.setImage(scaleImage(greenButtonImage, buttonScaleX, buttonScaleY));
+
+        double backgroundScaleX = 1 * widthMultiplier;
+        double backgroundScaleY = 1 * heightMultiplier;
+        backgroundImage.setImage(scaleImage(backgroundImage, backgroundScaleX, backgroundScaleY));
+        
+        
+    }
+
+    private static Image scaleImage(ImageIcon image, double scaleX, double scaleY){
+        return image.getImage().getScaledInstance((int) (image.getIconWidth() * scaleX), (int) (image.getIconHeight() * scaleY), java.awt.Image.SCALE_DEFAULT);
     }
 
     private static void loadSounds() throws UnsupportedAudioFileException, IOException {

@@ -114,6 +114,9 @@ public class DifficultyPane extends JPanel {
 
         Image image = Assets.backgroundImage.getImage();
         g.drawImage(image, 0,0,this);
+        g.drawImage(image, Assets.backgroundImage.getIconWidth(), 0, this);
+        g.drawImage(image, 0, Assets.backgroundImage.getIconHeight(), this);
+        g.drawImage(image, Assets.backgroundImage.getIconWidth(), Assets.backgroundImage.getIconHeight(), this);
     }
 
 }

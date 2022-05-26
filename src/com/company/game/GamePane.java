@@ -93,8 +93,8 @@ public class GamePane extends JPanel {
         /*
             Upgrade ammo button
          */
-        upgradeAmmoButton = new UpgradeButton("<html><center>Upgrade reload time!<br>(" + Settings.ammoUpgradeCost + ")</center></html>");//new JButton("<html><center>Upgrade reload time!<br>(" + Settings.ammoUpgradeCost + ")</center></html>");
-        upgradeAmmoButton.setFont(Assets.rainyHeartsFont.deriveFont(20f));
+        upgradeAmmoButton = new UpgradeButton("<html><center>Upgrade magazine size!<br>(" + Settings.ammoUpgradeCost + ")</center></html>");//new JButton("<html><center>Upgrade reload time!<br>(" + Settings.ammoUpgradeCost + ")</center></html>");
+        upgradeAmmoButton.setFont(Assets.rainyHeartsFont.deriveFont(16f));
         //upgradeAmmoButton.setFont(Assets.rainyHeartsFont.deriveFont(24f));
         upgradeAmmoButton.addActionListener(new ActionListener() {
             @Override
@@ -110,7 +110,7 @@ public class GamePane extends JPanel {
             Upgrade damage button
          */
         upgradeDamageButton = new UpgradeButton("<html><center>Upgrade damage!<br>(" + Settings.damageUpgradeCost + ")<br>Current: " + Controllers.getGameController().getAmmoUpgrade() + "</center></html>");
-        upgradeDamageButton.setFont(Assets.rainyHeartsFont.deriveFont(20f));
+        upgradeDamageButton.setFont(Assets.rainyHeartsFont.deriveFont(16f));
         upgradeDamageButton.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -201,6 +201,9 @@ public class GamePane extends JPanel {
 
         Image image = Assets.backgroundImage.getImage();
         g.drawImage(image, 0,0,this);
+        g.drawImage(image, Assets.backgroundImage.getIconWidth(), 0, this);
+        g.drawImage(image, 0, Assets.backgroundImage.getIconHeight(), this);
+        g.drawImage(image, Assets.backgroundImage.getIconWidth(), Assets.backgroundImage.getIconHeight(), this);
     }
 
     public JLabel getTimerLabel() {

@@ -53,7 +53,7 @@ public abstract class MovingActor extends JButton {
         }
         else{
             position.move(speed, 0);
-            if(getPosition().getX() > Settings.width){
+            if(getPosition().getX() > Settings.currentResolution.getWidth()){
                 setAlive(false);
             }
         }

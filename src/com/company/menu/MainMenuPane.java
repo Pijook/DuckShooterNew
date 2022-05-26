@@ -13,6 +13,7 @@ public class MainMenuPane extends JPanel {
 
     private JButton startButton;
     private JButton leaderBoardButton;
+    private JButton optionButton;
     private JButton exitButton;
 
     private JPanel actorsPane;
@@ -66,6 +67,17 @@ public class MainMenuPane extends JPanel {
         });
 
         /*
+        Option button
+         */
+        optionButton = new MenuButton("Option");
+        optionButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Main.getGameFrame().getCardLayout().show(Main.getGameFrame().getMainPane(), Frame.OPTIONS.name());
+            }
+        });
+
+        /*
             Actors pane
          */
         actorsPane = new JPanel();
@@ -106,10 +118,13 @@ public class MainMenuPane extends JPanel {
         gridBagConstraints.gridy = 2;
         add(leaderBoardButton, gridBagConstraints);
 
+        gridBagConstraints.gridy = 3;
+        add(optionButton, gridBagConstraints);
+
         /*
             Exit button
          */
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 4;
         add(exitButton, gridBagConstraints);
 
     }
@@ -120,9 +135,16 @@ public class MainMenuPane extends JPanel {
 
         Image image = Assets.backgroundImage.getImage();
         g.drawImage(image, 0,0,this);
+        g.drawImage(image, Assets.backgroundImage.getIconWidth(), 0, this);
+        g.drawImage(image, 0, Assets.backgroundImage.getIconHeight(), this);
+        g.drawImage(image, Assets.backgroundImage.getIconWidth(), Assets.backgroundImage.getIconHeight(), this);
     }
 
     public JPanel getActorsPane() {
         return actorsPane;
+    }
+
+    public JButton getOptionButton() {
+        return optionButton;
     }
 }
