@@ -19,7 +19,6 @@ public abstract class MovingActor extends JButton {
 
     public MovingActor(ImageIcon imageIcon, Position position, boolean left, int speed){
         super(imageIcon);
-        //super(new ImageIcon(imageIcon.getImage()));
         this.imageIcon = imageIcon;
         this.position = position;
         this.left = left;

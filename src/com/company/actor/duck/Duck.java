@@ -36,12 +36,6 @@ public abstract class Duck extends MovingActor {
             );
         }
 
-        System.out.println("Generated y: " + position.getY());
-
-        if(position.getY() >= Main.getGameFrame().getGamePane().getUpgradeAmmoButton().getY()){
-            System.out.println("Error: " + position.getY());
-        }
-
         Duck duck;
         if(chance <= 5){
             if(isLeft){
@@ -91,13 +85,11 @@ public abstract class Duck extends MovingActor {
         if(!isAlive()){
             if(isLeft()){
                 if(getPosition().getX() < -getImageIcon().getIconWidth()){
-                    System.out.println("taking live!");
                     Controllers.getGameController().setLives(Controllers.getGameController().getLives() - damage);
                 }
             }
             else{
                 if(getPosition().getX() > Settings.getCurrentResolution().getWidth()){
-                    System.out.println("taking live!");
                     Controllers.getGameController().setLives(Controllers.getGameController().getLives() - damage);
                 }
             }

@@ -60,7 +60,7 @@ public class Assets {
         rainyHeartsFont = rainyHeartsFont.deriveFont(12f);
     }
 
-    private static void loadTextures() throws IOException {
+    private static void loadTextures() {
         programIcon = new ImageIcon("resources/textures/icon.png");
 
         easyDuckLeft = new ImageIcon("resources/textures/duckFramesSmall/easy/duckWhiteLeft.gif");
@@ -93,8 +93,6 @@ public class Assets {
     }
 
     public static void scaleImages(double widthMultiplier, double heightMultiplier){
-        System.out.println(widthMultiplier + " " + heightMultiplier);
-
         widthMultiplier = widthMultiplier * 100;
         widthMultiplier = (int) widthMultiplier;
         widthMultiplier = widthMultiplier / 100;
@@ -131,7 +129,6 @@ public class Assets {
 
         double buttonScaleX = 0.8 * widthMultiplier;
         double buttonScaleY = 0.8 * heightMultiplier;
-        System.out.println(buttonScaleX);
         greenButtonImage.setImage(scaleImage(greenButtonImage, buttonScaleX, buttonScaleY));
 
         double backgroundScaleX = 1 * widthMultiplier;
