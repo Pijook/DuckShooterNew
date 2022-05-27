@@ -15,6 +15,7 @@ public class DifficultyPane extends JPanel {
     private JButton easyModeButton;
     private JButton normalModeButton;
     private JButton doomModeButton;
+    private JButton returnButton;
 
     public DifficultyPane(){
         createElements();
@@ -69,6 +70,14 @@ public class DifficultyPane extends JPanel {
                 Main.getGameFrame().getCardLayout().show(Main.getGameFrame().getMainPane(), Frame.GAME.name());
             }
         });
+
+        returnButton = new DifficultyButton("Return");
+        returnButton.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Main.getGameFrame().getCardLayout().show(Main.getGameFrame().getMainPane(), Frame.MAIN_MENU.name());
+            }
+        });
     }
 
     private void createLayout(){
@@ -106,6 +115,12 @@ public class DifficultyPane extends JPanel {
          */
         gridBagConstraints.gridy = 3;
         add(doomModeButton,gridBagConstraints);
+
+        /*
+            Return button
+         */
+        gridBagConstraints.gridy = 4;
+        add(returnButton, gridBagConstraints);
     }
 
     @Override
@@ -118,5 +133,4 @@ public class DifficultyPane extends JPanel {
         g.drawImage(image, 0, Assets.backgroundImage.getIconHeight(), this);
         g.drawImage(image, Assets.backgroundImage.getIconWidth(), Assets.backgroundImage.getIconHeight(), this);
     }
-
 }

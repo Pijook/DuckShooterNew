@@ -10,6 +10,7 @@ import java.awt.event.*;
 
 public class LeaderboardPane extends JPanel {
 
+    private JLabel titleLabel;
     private JList<PlayerScore> playerScoreJList;
     private JScrollPane jScrollPane;
     private LeaderboardModel leaderboardModel;
@@ -21,6 +22,12 @@ public class LeaderboardPane extends JPanel {
     }
 
     private void createElements(){
+        /*
+            Title label
+         */
+        titleLabel = new JLabel("Leaderboard");
+        titleLabel.setFont(Assets.rainyHeartsFont.deriveFont(72f));
+
         /*
             Leaderboard model
          */
@@ -86,20 +93,27 @@ public class LeaderboardPane extends JPanel {
          */
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = GridBagConstraints.CENTER;
-        gridBagConstraints.ipadx = 100;
+        //gridBagConstraints.ipadx = 100;
 
         /*
             Scrolling pane
          */
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
+        add(titleLabel, gridBagConstraints);
+
+        /*
+            Scrolling pane
+         */
+        gridBagConstraints.insets = new Insets(25, 0, 0, 0);
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
         add(jScrollPane, gridBagConstraints);
 
         /*
             Return button
          */
-        gridBagConstraints.insets = new Insets(25, 0, 0, 0);
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 2;
         add(returnButton, gridBagConstraints);
     }
 
