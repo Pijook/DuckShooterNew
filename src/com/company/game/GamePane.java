@@ -81,21 +81,21 @@ public class GamePane extends JPanel {
         ammoButton.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Controllers.getGameController().setAmmo((Settings.baseAmmo + Controllers.getGameController().getAmmoUpgrade()));
+                Controllers.getGameController().setAmmo((Settings.getBaseAmmo() + Controllers.getGameController().getAmmoUpgrade()));
             }
         });
 
         /*
             Upgrade ammo button
          */
-        upgradeAmmoButton = new UpgradeButton("<html><center>Upgrade magazine size!<br>(" + Settings.ammoUpgradeCost + ")</center></html>");//new JButton("<html><center>Upgrade reload time!<br>(" + Settings.ammoUpgradeCost + ")</center></html>");
+        upgradeAmmoButton = new UpgradeButton("<html><center>Upgrade magazine size!<br>(" + Settings.getAmmoUpgradeCost() + ")</center></html>");//new JButton("<html><center>Upgrade reload time!<br>(" + Settings.ammoUpgradeCost + ")</center></html>");
         upgradeAmmoButton.setFont(Assets.rainyHeartsFont.deriveFont(16f));
         upgradeAmmoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(gameController.getScore() >= Settings.ammoUpgradeCost){
+                if(gameController.getScore() >= Settings.getAmmoUpgradeCost()){
                     gameController.setAmmoUpgrade(gameController.getAmmoUpgrade() + 1);
-                    gameController.setScore(gameController.getScore() - Settings.ammoUpgradeCost);
+                    gameController.setScore(gameController.getScore() - Settings.getAmmoUpgradeCost());
                 }
             }
         });
@@ -103,14 +103,14 @@ public class GamePane extends JPanel {
         /*
             Upgrade damage button
          */
-        upgradeDamageButton = new UpgradeButton("<html><center>Upgrade damage!<br>(" + Settings.damageUpgradeCost + ")<br>Current: " + Controllers.getGameController().getDamageUpgrade() + "</center></html>");
+        upgradeDamageButton = new UpgradeButton("<html><center>Upgrade damage!<br>(" + Settings.getDamageUpgradeCost() + ")<br>Current: " + Controllers.getGameController().getDamageUpgrade() + "</center></html>");
         upgradeDamageButton.setFont(Assets.rainyHeartsFont.deriveFont(16f));
         upgradeDamageButton.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(gameController.getScore() >= Settings.damageUpgradeCost){
+                if(gameController.getScore() >= Settings.getDamageUpgradeCost()){
                     gameController.setDamageUpgrade(gameController.getDamageUpgrade() + 1);
-                    gameController.setScore(gameController.getScore() - Settings.damageUpgradeCost);
+                    gameController.setScore(gameController.getScore() - Settings.getDamageUpgradeCost());
                     //upgradeDamageButton.setText("<html><center>Upgrade damage!<br>(" + Settings.damageUpgradeCost + ")<br>Current: " + Controllers.getGameController().getDamageUpgrade() + "</center></html>");
                 }
             }

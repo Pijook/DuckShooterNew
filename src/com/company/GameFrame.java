@@ -26,8 +26,8 @@ public class GameFrame extends JFrame {
         setIconImage(Assets.programIcon.getImage());
         setVisible(true);
         setResizable(false);
-        setTitle(Settings.title);
-        setSize(Settings.currentResolution.getWidth(), Settings.currentResolution.getHeight());
+        setTitle(Settings.getTitle());
+        setSize(Settings.getCurrentResolution().getWidth(), Settings.getCurrentResolution().getHeight());
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 

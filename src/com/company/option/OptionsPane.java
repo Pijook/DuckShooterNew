@@ -56,7 +56,7 @@ public class OptionsPane extends JPanel {
             Volume slider
          */
         volumeSlider = new JSlider();
-        volumeSlider.setValue(Settings.volumeLevel);
+        volumeSlider.setValue(Settings.getVolumeLevel());
         volumeSlider.setOpaque(false);
         volumeSlider.setMajorTickSpacing(25);
         volumeSlider.setMinorTickSpacing(5);
@@ -71,12 +71,12 @@ public class OptionsPane extends JPanel {
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Settings.volumeLevel = volumeSlider.getValue();
+                Settings.setVolumeLevel(volumeSlider.getValue());
 
                 SwingUtilities.invokeLater(() -> {
-                    Settings.currentResolution = resolutionModel.getSelectedResolution();
+                    Settings.setCurrentResolution(resolutionModel.getSelectedResolution());
 
-                    Main.getGameFrame().setSize(Settings.currentResolution.getWidth(), Settings.currentResolution.getHeight());
+                    Main.getGameFrame().setSize(Settings.getCurrentResolution().getWidth(), Settings.getCurrentResolution().getHeight());
                 });
 
             }

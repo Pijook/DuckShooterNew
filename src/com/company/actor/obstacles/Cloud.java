@@ -25,7 +25,7 @@ public class Cloud extends MovingActor {
         Position position;
         if(isLeft){
             position = new Position(
-                    Settings.currentResolution.getWidth(),
+                    Settings.getCurrentResolution().getWidth(),
                     random.nextInt(bound) - difference
             );
         }

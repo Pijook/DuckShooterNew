@@ -65,10 +65,10 @@ public class GameController {
 
     public void reset() {
         time = 0;
-        lives = Settings.lives;
+        lives = Settings.getLives();
         score = 0;
-        damage = Settings.baseDamage;
-        ammo = Settings.baseAmmo;
+        damage = Settings.getBaseDamage();
+        ammo = Settings.getBaseAmmo();
         ammoUpgrade = 0;
         damageUpgrade = 0;
         musicClip.setFramePosition(0);
@@ -212,7 +212,7 @@ public class GameController {
                     From percent to decibel
                  */
             float range = volumeControl.getMinimum();
-            float result = range * (1 - Settings.volumeLevel / 100.0f);
+            float result = range * (1 - Settings.getVolumeLevel() / 100.0f);
             volumeControl.setValue(result);
             musicClip.start();
 
@@ -245,7 +245,7 @@ public class GameController {
 
     public void setDamageUpgrade(int damageUpgrade) {
         this.damageUpgrade = damageUpgrade;
-        Main.getGameFrame().getGamePane().getUpgradeDamageButton().setText("<html><center>Upgrade damage!<br>(" + Settings.damageUpgradeCost + ")<br>Current: " + this.damageUpgrade + "</center></html>");
+        Main.getGameFrame().getGamePane().getUpgradeDamageButton().setText("<html><center>Upgrade damage!<br>(" + Settings.getDamageUpgradeCost() + ")<br>Current: " + this.damageUpgrade + "</center></html>");
     }
 
     public int getAmmoUpgrade() {

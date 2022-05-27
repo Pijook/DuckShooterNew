@@ -32,7 +32,7 @@ public abstract class MovingActor extends JButton {
         thread = new Thread(() -> {
             while(!Thread.interrupted() && Controllers.getGameController().isGameActive()){
                 try{
-                    Thread.sleep(1000 / Settings.speed);
+                    Thread.sleep(1000 / Settings.getSpeed());
                     act();
                 } catch (InterruptedException e) {
                     break;
@@ -53,7 +53,7 @@ public abstract class MovingActor extends JButton {
         }
         else{
             position.move(speed, 0);
-            if(getPosition().getX() > Settings.currentResolution.getWidth()){
+            if(getPosition().getX() > Settings.getCurrentResolution().getWidth()){
                 setAlive(false);
             }
         }

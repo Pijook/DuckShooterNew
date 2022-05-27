@@ -39,7 +39,7 @@ public class GameLoop extends Thread {
             gameController.getObstacleSpawnRate().setTempRate(gameController.getObstacleSpawnRate().getTempRate() + 1);
 
             try {
-                sleep(1000 / Settings.speed);
+                sleep(1000 / Settings.getSpeed());
             } catch (InterruptedException e) {
                 break;
             }

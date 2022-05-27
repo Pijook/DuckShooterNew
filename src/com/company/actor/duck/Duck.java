@@ -25,7 +25,7 @@ public abstract class Duck extends MovingActor {
         Position position;
         if(isLeft){
             position = new Position(
-                    Settings.currentResolution.getWidth(),
+                    Settings.getCurrentResolution().getWidth(),
                     random.nextInt(range) + moveBy
             );
         }
@@ -96,7 +96,7 @@ public abstract class Duck extends MovingActor {
                 }
             }
             else{
-                if(getPosition().getX() > Settings.currentResolution.getWidth()){
+                if(getPosition().getX() > Settings.getCurrentResolution().getWidth()){
                     System.out.println("taking live!");
                     Controllers.getGameController().setLives(Controllers.getGameController().getLives() - damage);
                 }
